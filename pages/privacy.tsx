@@ -9,6 +9,7 @@ export default function Privacy() {
         <meta name="robots" content="noindex,nofollow" />
       </Head>
       <main className="min-h-screen bg-black text-white px-4">
+        <Header />
         <div className="mx-auto max-w-3xl py-16">
           <h1 className="text-3xl font-bold">Privacy Policy</h1>
           <p className="mt-4 text-zinc-300">
