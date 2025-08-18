@@ -4,6 +4,7 @@ import Header from "../components/Header";
 export default function Terms() {
   return (
     <>
+      <Header />
       <Head>
         <title>Terms of Service — UNLACE</title>
         <meta name="robots" content="noindex,nofollow" />
