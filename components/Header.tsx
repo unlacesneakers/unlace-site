@@ -1,17 +1,33 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Header() {
+  const router = useRouter();
+
+  const linkClass = (path: string) =>
+    router.pathname === path
+      ? "text-white font-semibold border-b-2 border-white pb-1"
+      : "text-zinc-400 hover:text-white";
+
   return (
     <header className="border-b border-white/10 bg-black">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-        <Link href="/" className="text-xl font-extrabold tracking-wide hover:text-zinc-400">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        {/* Logo/Brand */}
+        <Link href="/" className="text-xl font-bold">
           UNLACE
         </Link>
-        <nav className="flex gap-6 text-sm text-zinc-400">
-          <Link href="/#services" className="hover:text-white">Services</Link>
-          <Link href="/#pickup" className="hover:text-white">Book</Link>
-          <Link href="/privacy" className="hover:text-white">Privacy</Link>
-          <Link href="/terms" className="hover:text-white">Terms</Link>
+
+        {/* Navigation */}
+        <nav className="flex items-center gap-6 text-sm">
+          <Link href="/" className={linkClass("/")}>
+            Home
+          </Link>
+          <Link href="/terms" className={linkClass("/terms")}>
+            Terms
+          </Link>
+          <Link href="/privacy" className={linkClass("/privacy")}>
+            Privacy
+          </Link>
         </nav>
       </div>
     </header>
