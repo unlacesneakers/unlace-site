@@ -1,19 +1,18 @@
 // pages/index.tsx
 // ======================================================
 // UNLACE — Home Page (Next.js + Tailwind + Framer Motion)
-// - Sticky header (imported from components/Header.tsx)
+// - Sticky header (components/Header.tsx)
 // - Services with price badges
-// - Extras beside Service Tier in booking form
-// - Photo links + file upload with Formspree fallback
-// - Smooth anchor scrolling + clean layout
+// - Extras beside Service Tier
+// - Photo links + file uploads (pure HTML POST to Formspree)
+// - Smooth anchor scrolling + neat layout
 // ======================================================
 
-import React, { useState } from "react";
+import React from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 
-// ===== Icons =====
+// ===== Icons (for cards & hero ticks) =====
 import {
   ShieldCheck,
   Droplets,
@@ -25,7 +24,7 @@ import {
   Truck,
 } from "lucide-react";
 
-// ===== Components =====
+// ===== Sticky Header =====
 import Header from "../components/Header";
 
 // ===== Small UI helpers =====
@@ -73,107 +72,6 @@ function Input(
 // Page
 // ======================================================
 export default function Home() {
-  const router = useRouter();
-  const [submitting, setSubmitting] = useState(false);
-
-  // ===== Formspree submit (with file validation + fallback) =====
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.currentTarget as HTMLFormElement;
-    const formData = new FormData(form);
-
-    // ✅ Your Formspree endpoint
-    const endpoint = "https://formspree.io/f/xyzpanlv";
-
-    // ---- Client-side validation for files ----
-    const fileInput = form.querySelector(
-      'input[name="photos"]'
-    ) as HTMLInputElement | null;
-    const files = fileInput?.files || null;
-
-    const MAX_MB = 10; // typical Formspree per-file limit
-    if (files && files.length > 0) {
-      for (const f of Array.from(files)) {
-        const mb = f.size / (1024 * 1024);
-        if (mb > MAX_MB) {
-          alert(
-            `"${f.name}" is ${mb.toFixed(
-              1
-            )}MB. Max ${MAX_MB}MB per image. Please resize/compress and try again.`
-          );
-          return;
-        }
-        if (!f.type.startsWith("image/")) {
-          alert(
-            `"${f.name}" is not an image. Please upload images only (jpg, png, webp).`
-          );
-          return;
-        }
-      }
-    }
-
-    // ---- Formspree helper fields ----
-    const email =
-      (form.querySelector('input[name="email"]') as HTMLInputElement)?.value ||
-      "";
-    if (email) formData.set("_replyto", email);
-    formData.set("_subject", "New UNLACE Pickup Request");
-    formData.set("_next", "/thank-you");
-
-    // POST helper (keeps error messages if Formspree returns JSON)
-    const send = async (fd: FormData) => {
-      const res = await fetch(endpoint, {
-        method: "POST",
-        body: fd,
-        headers: { Accept: "application/json" }, // don't set Content-Type manually
-      });
-      let msg = "";
-      try {
-        const data = await res.json();
-        if (!res.ok && data?.errors?.length) {
-          msg = data.errors.map((e: any) => e.message).join("\n");
-        }
-      } catch {
-        // ignore parse errors
-      }
-      return { ok: res.ok, msg };
-    };
-
-    setSubmitting(true);
-
-    // Try with files first (if any)
-    let { ok, msg } = await send(formData);
-
-    // If it failed and we had files, retry without files (common plan limitation)
-    if (!ok && files && files.length > 0) {
-      const retry = new FormData(form);
-      retry.delete("photos"); // strip binary attachments
-      retry.set(
-        "photo_upload_issue",
-        "User attempted to upload images, but attachments were not accepted. See 'Photo links (optional)' if provided."
-      );
-      // keep helper fields
-      if (email) retry.set("_replyto", email);
-      retry.set("_subject", "New UNLACE Pickup Request");
-      retry.set("_next", "/thank-you");
-
-      const r = await send(retry);
-      ok = r.ok;
-      msg = r.msg || msg;
-    }
-
-    setSubmitting(false);
-
-    if (ok) {
-      router.push("/thank-you");
-    } else {
-      alert(
-        msg ||
-          "Something went wrong. Please try again (you can paste image links in the Photo links field)."
-      );
-    }
-  }
-
   return (
     <>
       <Head>
@@ -327,7 +225,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===== PICKUP BOOKING (Formspree) ===== */}
+        {/* ===== PICKUP BOOKING (pure HTML → Formspree) ===== */}
         <section
           id="pickup"
           className="bg-zinc-950 border-t border-white/10 scroll-mt-24"
@@ -336,10 +234,18 @@ export default function Home() {
             <h2 className="text-2xl sm:text-4xl font-bold mb-6">Request a Pick-Up</h2>
 
             <form
-              onSubmit={handleSubmit}
+              action="https://formspree.io/f/xyzpanlv"
+              method="POST"
+              encType="multipart/form-data"
               className="grid grid-cols-1 sm:grid-cols-2 gap-4"
               aria-label="Pickup booking form"
             >
+              {/* Formspree helper fields */}
+              <input type="hidden" name="_subject" value="New UNLACE Pickup Request" />
+              <input type="hidden" name="_next" value="/thank-you" />
+              {/* Honeypot anti-spam */}
+              <input type="text" name="_gotcha" className="hidden" aria-hidden="true" />
+
               {/* Contact & address */}
               <Input name="name" placeholder="Full name" required />
               <Input name="email" type="email" placeholder="Email" required />
@@ -414,14 +320,14 @@ export default function Home() {
                 className="bg-black border border-white/10 rounded-xl px-4 py-3 sm:col-span-2"
               />
 
-              {/* File upload (optional) */}
+              {/* File upload (optional) — JPG/PNG/WebP only for best compatibility */}
               <label className="sm:col-span-2 text-sm text-zinc-400">
-                Upload sneaker photos (optional)
+                Upload sneaker photos (optional) — JPG/PNG/WebP only, max 10MB each
               </label>
               <input
                 type="file"
                 name="photos"
-                accept="image/*"
+                accept="image/jpeg,image/png,image/webp"
                 multiple
                 className="sm:col-span-2 bg-black border border-white/10 rounded-xl px-4 py-3"
               />
@@ -435,18 +341,15 @@ export default function Home() {
                 </span>
               </label>
 
-              {/* Spam honeypot */}
-              <input type="text" name="_gotcha" className="hidden" aria-hidden="true" />
-
               {/* Submit */}
               <button
-                disabled={submitting}
-                className="sm:col-span-2 rounded-2xl bg-white text-black px-6 py-3 font-semibold hover:-translate-y-0.5 transition-transform disabled:opacity-70"
+                className="sm:col-span-2 rounded-2xl bg-white text-black px-6 py-3 font-semibold hover:-translate-y-0.5 transition-transform"
               >
-                {submitting ? "Submitting..." : "Request Pick-Up"}
+                Request Pick-Up
               </button>
+
               <p className="text-xs text-zinc-500 sm:col-span-2">
-                Tip: Images up to ~10MB each. If uploads don’t work, paste file links above.
+                Tip: If uploads fail, paste links above (Google Drive/Dropbox/IG).
               </p>
             </form>
           </div>
