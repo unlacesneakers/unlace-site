@@ -6,9 +6,25 @@ import { motion } from "framer-motion";
 import { ShieldCheck, Droplets, Brush, Truck, Stars, Clock, BadgeCheck, Mail, Sparkles } from "lucide-react";
 import Toast from "../components/Toast";
 
-function Card({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
+function Card({
+  icon,
+  title,
+  desc,
+  price,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+  price?: string; // ← NEW
+}) {
   return (
-    <div className="rounded-2xl border border-white/10 p-6 bg-black hover:border-white/30 transition-colors">
+    <div className="relative rounded-2xl border border-white/10 p-6 bg-black hover:border-white/30 transition-colors">
+      {/* Price badge (optional) */}
+      {price && (
+        <span className="absolute top-4 right-4 text-[11px] uppercase tracking-wide rounded-full bg-white text-black px-2 py-1">
+          {price}
+        </span>
+      )}
       <div className="h-6 w-6 mb-4" aria-hidden>{icon}</div>
       <h3 className="text-lg font-semibold">{title}</h3>
       <p className="mt-2 text-zinc-300 text-sm">{desc}</p>
@@ -135,16 +151,19 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
               icon={<Droplets className="h-6 w-6" />}
               title="Essential Clean"
               desc="Exterior-only clean for uppers & midsoles — fast refresh for daily wear."
+              price="$39"
             />
             <Card
               icon={<Droplets className="h-6 w-6" />}
               title="Premium Detail"
               desc="Deep clean of upper, midsole, insole & laces + deodorising. Material-safe for leather, mesh, suede & nubuck."
+              price="$69"
             />
             <Card
               icon={<Stars className="h-6 w-6" />}
               title="Whitening & De-yellowing"
               desc="Icy sole restoration and stain reduction for that fresh-out-the-box feel."
+              price="From $129"
             />
           </div>
           
@@ -157,11 +176,13 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
                 icon={<Sparkles className="h-6 w-6" />}
                 title="Lace Swap"
                 desc="Fresh laces or custom swap — fitted to your pair."
+                price="$10–$15"
               />
               <Card
                 icon={<BadgeCheck className="h-6 w-6" />}
                 title="Protection Coating"
                 desc="Water & stain repellent to keep your kicks cleaner for longer."
+                price="$20"
               />
             </div>
           </div>
@@ -187,12 +208,32 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
                 <option>3:00 – 6:00</option>
                 <option>After hours (request)</option>
               </select>
-              <select name="service_tier" required className="bg-black border border-white/10 rounded-xl px-4 py-3">
-              <option value="">Service tier</option>
-              <option>Essential Clean</option>
-              <option>Premium Detail</option>
-              <option>Whitening & De-yellowing</option>
+              {/* Service tier (left) */}
+              <select
+                name="service_tier"
+                required
+                className="bg-black border border-white/10 rounded-xl px-4 py-3"
+              >
+                <option value="">Service tier</option>
+                <option>Essential Clean</option>
+                <option>Premium Detail</option>
+                <option>Whitening & De-yellowing</option>
               </select>
+              
+              {/* Extras (right) — sits beside on desktop thanks to the 2-col grid */}
+              <fieldset className="bg-black border border-white/10 rounded-xl px-4 py-3">
+                <legend className="text-sm text-zinc-400">Extras (optional)</legend>
+                <div className="mt-2 space-y-2">
+                  <label className="flex items-center gap-2">
+                    <input type="checkbox" name="extras[]" value="Lace Swap" />
+                    <span>Lace Swap</span>
+                  </label>
+                  <label className="flex items-center gap-2">
+                    <input type="checkbox" name="extras[]" value="Protection Coating" />
+                    <span>Protection Coating</span>
+                  </label>
+                </div>
+              </fieldset>
               <textarea name="notes" placeholder="Sneaker model(s) & notes" className="bg-black border border-white/10 rounded-xl px-4 py-3 sm:col-span-2" rows={4} />
               <label className="sm:col-span-2 text-sm text-zinc-400">Upload sneaker photos (optional)</label>
               <input
