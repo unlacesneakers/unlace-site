@@ -193,6 +193,19 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
               <option>Premium Detail</option>
               <option>Whitening & De-yellowing</option>
               </select>
+              {/* Extras (optional) */}
+<fieldset className="sm:col-span-2">
+  <legend className="text-sm text-zinc-400 mb-2">Extras (optional)</legend>
+  <label className="flex items-center gap-2 mb-2">
+    <input type="checkbox" name="extras[]" value="Lace Swap" />
+    <span>Lace Swap</span>
+  </label>
+  <label className="flex items-center gap-2">
+    <input type="checkbox" name="extras[]" value="Protection Coating" />
+    <span>Protection Coating</span>
+  </label>
+</fieldset>
+
               <textarea name="notes" placeholder="Sneaker model(s) & notes" className="bg-black border border-white/10 rounded-xl px-4 py-3 sm:col-span-2" rows={4} />
               <label className="sm:col-span-2 text-sm text-zinc-400">Upload sneaker photos (optional)</label>
               <input
