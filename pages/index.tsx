@@ -164,6 +164,13 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
                 <option>Restoration</option>
               </select>
               <textarea name="notes" placeholder="Sneaker model(s) & notes" className="bg-black border border-white/10 rounded-xl px-4 py-3 sm:col-span-2" rows={4} />
+              <input
+                type="file"
+                name="photos"
+                accept="image/*"
+                multiple
+                className="sm:col-span-2 bg-black border border-white/10 rounded-xl px-4 py-3"
+              />
               <button className="sm:col-span-2 rounded-2xl bg-white text-black px-6 py-3 font-semibold">Request Pick-Up</button>
             </form>
           </div>
