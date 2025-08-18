@@ -139,7 +139,7 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         </section>
 
         {/* Services */}
-        <section id="services" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
+        <section id="services" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 scroll-mt-24">
           <div className="mb-10 flex items-end justify-between">
             <h2 className="text-2xl sm:text-4xl font-bold">Services</h2>
             <p className="text-sm text-zinc-400">Meticulous care, premium results.</p>
@@ -189,7 +189,7 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         </section>
 
         {/* Pickup Booking */}
-        <section id="pickup" className="bg-zinc-950 border-t border-white/10">
+        <section id="pickup" className="bg-zinc-950 border-t border-white/10 scroll-mt-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
             <h2 className="text-2xl sm:text-4xl font-bold mb-6">Request a Pick-Up</h2>
             <input type="text" name="_gotcha" className="hidden" aria-hidden="true" />
