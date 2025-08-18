@@ -376,8 +376,8 @@ export default function Home() {
                 Instagram
               </a>
               <span className="opacity-40">•</span>
-              <a href="tel:+61XXXXXXXXX" className="hover:text-white">
-                +61 XXXXXXXX
+              <a href="tel:+61452507067" className="hover:text-white">
+                +61 452507067
               </a>
               <span className="opacity-40">•</span>
               <a href="/privacy" className="hover:text-white">
