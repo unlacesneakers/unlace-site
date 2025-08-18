@@ -164,6 +164,7 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
                 <option>Restoration</option>
               </select>
               <textarea name="notes" placeholder="Sneaker model(s) & notes" className="bg-black border border-white/10 rounded-xl px-4 py-3 sm:col-span-2" rows={4} />
+              <label className="text-sm text-zinc-400">Upload sneaker photos (optional)</label>
               <input
                 type="file"
                 name="photos"
