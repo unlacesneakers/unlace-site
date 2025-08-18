@@ -5,12 +5,11 @@ import { useRouter } from "next/router";
 export default function Header() {
   const router = useRouter();
 
-  // Simple active state: exact match for full pages
-  const isActive = (path: string) => router.pathname === path;
+  const isActivePath = (path: string) => router.pathname === path;
+  const isActiveHash = (hash: string) => router.asPath.endsWith(hash); // "/#services" or "/#pickup"
 
-  // Styles: active vs default
-  const navClass = (path: string) =>
-    isActive(path)
+  const navClass = (active: boolean) =>
+    active
       ? "text-white font-semibold border-b-2 border-white pb-1"
       : "text-zinc-400 hover:text-white";
 
@@ -24,12 +23,11 @@ export default function Header() {
 
         {/* Nav */}
         <nav className="hidden md:flex items-center gap-6 text-sm">
-          <Link href="/" className={navClass("/")}>Home</Link>
-          {/* On the home page, these anchor links scroll to sections */}
-          <a href="/#services" className="text-zinc-400 hover:text-white">Services</a>
-          <a href="/#pickup" className="text-zinc-400 hover:text-white">Book</a>
-          <Link href="/privacy" className={navClass("/privacy")}>Privacy</Link>
-          <Link href="/terms" className={navClass("/terms")}>Terms</Link>
+          <Link href="/" className={navClass(isActivePath("/"))}>Home</Link>
+          <a href="/#services" className={navClass(isActiveHash("#services"))}>Services</a>
+          <a href="/#pickup" className={navClass(isActiveHash("#pickup"))}>Book</a>
+          <Link href="/privacy" className={navClass(isActivePath("/privacy"))}>Privacy</Link>
+          <Link href="/terms" className={navClass(isActivePath("/terms"))}>Terms</Link>
         </nav>
       </div>
     </header>
