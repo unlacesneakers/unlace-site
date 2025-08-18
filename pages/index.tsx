@@ -79,7 +79,7 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
                 "postalCode": "3000",
                 "addressCountry": "AU"
               },
-              "telephone": "+61XXXXXXXXX",
+              "telephone": "+61452507067",
               "url": "https://unlace.com.au",
               "sameAs": ["https://www.instagram.com/unlace"]
             })
@@ -182,11 +182,19 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-zinc-400">
             <div>© {new Date().getFullYear()} UNLACE — Melbourne, VIC</div>
             <div className="flex items-center gap-4">
-              <a href="mailto:hello@unlace.com.au" className="hover:text-white flex items-center gap-1"><Mail className="h-4 w-4"/> hello@unlace.com.au</a>
+              <a href="mailto:unlacesneakers@gmail.com" className="hover:text-white flex items-center gap-1">
+                <Mail className="h-4 w-4"/> unlacesneakers@gmail.com
+              </a>
               <span className="opacity-40">•</span>
-              <a href="https://instagram.com/unlace" className="hover:text-white">Instagram</a>
+              <a href="https://www.instagram.com/unlacesneakers/" className="hover:text-white" target="_blank" rel="noreferrer">
+                Instagram
+              </a>
               <span className="opacity-40">•</span>
-              <a href="tel:+61XXXXXXXXX" className="hover:text-white">+61 XXXXXXXX</a>
+              <a href="tel:+61YOURNUMBER" className="hover:text-white">+61452507067</a>
+              <span className="opacity-40">•</span>
+              <a href="/privacy" className="hover:text-white">Privacy</a>
+              <span className="opacity-40">•</span>
+              <a href="/terms" className="hover:text-white">Terms</a>
             </div>
           </div>
         </footer>
