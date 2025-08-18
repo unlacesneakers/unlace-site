@@ -4,4 +4,5 @@
 
 :root { color-scheme: dark; }
 html, body { height: 100%; background: #000; }
+html { scroll-behavior: smooth; }
 *:focus-visible { outline: none; box-shadow: 0 0 0 2px rgba(255,255,255,.6); border-radius: .5rem; }
