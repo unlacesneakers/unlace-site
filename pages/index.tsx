@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
-import { ShieldCheck, Droplets, Brush, Truck, Stars, Clock, BadgeCheck, Mail } from "lucide-react";
+import { ShieldCheck, Droplets, Brush, Truck, Stars, Clock, BadgeCheck, Mail, Sparkles } from "lucide-react";
 import Toast from "../components/Toast";
 
 function Card({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
@@ -128,15 +128,42 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
             <h2 className="text-2xl sm:text-4xl font-bold">Services</h2>
             <p className="text-sm text-zinc-400">Meticulous care, premium results.</p>
           </div>
+          
+          {/* Core services */}
           <div className="grid md:grid-cols-3 gap-6">
-            <Card icon={<Droplets className="h-6 w-6" />} title="Deep Clean" desc="Upper, midsole, insole & laces — material-safe methods for leather, mesh, suede, nubuck." />
-            <Card icon={<Brush className="h-6 w-6" />} title="Suede & Nubuck Care" desc="Colour-safe revivals with gentle nap restoration and protection." />
-            <Card icon={<Stars className="h-6 w-6" />} title="Whitening & De-yellowing" desc="Icy sole restoration and stain reduction for that fresh-out-the-box feel." />
+            <Card
+              icon={<Droplets className="h-6 w-6" />}
+              title="Essential Clean"
+              desc="Exterior-only clean for uppers & midsoles — fast refresh for daily wear."
+            />
+            <Card
+              icon={<Droplets className="h-6 w-6" />}
+              title="Premium Detail"
+              desc="Deep clean of upper, midsole, insole & laces + deodorising. Material-safe for leather, mesh, suede & nubuck."
+            />
+            <Card
+              icon={<Stars className="h-6 w-6" />}
+              title="Whitening & De-yellowing"
+              desc="Icy sole restoration and stain reduction for that fresh-out-the-box feel."
+            />
           </div>
-          <div className="grid md:grid-cols-3 gap-6 mt-6">
-            <Card icon={<BadgeCheck className="h-6 w-6" />} title="Protection Coating" desc="Water & stain repellent to keep your kicks cleaner for longer." />
-            <Card icon={<Truck className="h-6 w-6" />} title="Pick-up & Delivery" desc="Door-to-door convenience across Melbourne metro." />
-            <Card icon={<Stars className="h-6 w-6" />} title="Detailing & Lace Swap" desc="Relacing, edge repaint, glue touch-ups, deodorise & detail." />
+          
+          {/* Extras */}
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold">Extras</h3>
+            <p className="text-sm text-zinc-400 mt-1">Add-ons you can include with any service.</p>
+            <div className="grid md:grid-cols-2 gap-6 mt-4">
+              <Card
+                icon={<Sparkles className="h-6 w-6" />}
+                title="Lace Swap"
+                desc="Fresh laces or custom swap — fitted to your pair."
+              />
+              <Card
+                icon={<BadgeCheck className="h-6 w-6" />}
+                title="Protection Coating"
+                desc="Water & stain repellent to keep your kicks cleaner for longer."
+              />
+            </div>
           </div>
         </section>
 
@@ -161,10 +188,10 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
                 <option>After hours (request)</option>
               </select>
               <select name="service_tier" required className="bg-black border border-white/10 rounded-xl px-4 py-3">
-                <option value="">Service tier</option>
-                <option>Essential Clean</option>
-                <option>Premium Detail</option>
-                <option>Restoration</option>
+              <option value="">Service tier</option>
+              <option>Essential Clean</option>
+              <option>Premium Detail</option>
+              <option>Whitening & De-yellowing</option>
               </select>
               <textarea name="notes" placeholder="Sneaker model(s) & notes" className="bg-black border border-white/10 rounded-xl px-4 py-3 sm:col-span-2" rows={4} />
               <label className="sm:col-span-2 text-sm text-zinc-400">Upload sneaker photos (optional)</label>
