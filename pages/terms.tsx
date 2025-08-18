@@ -4,11 +4,11 @@ import Header from "../components/Header";
 export default function Terms() {
   return (
     <>
-      <Header />
       <Head>
         <title>Terms of Service — UNLACE</title>
         <meta name="robots" content="noindex,nofollow" />
       </Head>
+      <Header />
       <main className="min-h-screen bg-black text-white px-4">
         <div className="mx-auto max-w-3xl py-16">
           <h1 className="text-3xl font-bold">Terms of Service</h1>
