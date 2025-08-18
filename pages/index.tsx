@@ -23,25 +23,35 @@ export default function Home() {
   const router = useRouter();
   const [toastOpen, setToastOpen] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const res = await fetch("/api/pickup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(Object.fromEntries(formData as any)),
-    });
-    if (res.ok) {
-      setToastOpen(true);
-      setTimeout(() => {
-        setToastOpen(false);
-        router.push("/thank-you");
-      }, 2000);
-      (e.currentTarget as HTMLFormElement).reset();
-    } else {
-      alert("Something went wrong. Please try again.");
-    }
+async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  e.preventDefault();
+  const form = e.currentTarget;
+  const formData = new FormData(form);
+
+  // 👇 paste your real Formspree endpoint here
+  const endpoint = "https://formspree.io/f/xyzpanlv";
+
+  // Optional extras sent to Formspree:
+  formData.append("_subject", "New UNLACE Pickup Request");
+  formData.append("_next", "/thank-you"); // we also call router.push below—both are fine
+
+  const res = await fetch(endpoint, {
+    method: "POST",
+    body: formData,
+    headers: { Accept: "application/json" },
+  });
+
+  if (res.ok) {
+    setToastOpen(true);
+    setTimeout(() => {
+      setToastOpen(false);
+      router.push("/thank-you");
+    }, 1200);
+    form.reset();
+  } else {
+    alert("Something went wrong. Please try again.");
   }
+}
 
   return (
     <>
@@ -131,6 +141,7 @@ export default function Home() {
         <section id="pickup" className="bg-zinc-950 border-t border-white/10">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
             <h2 className="text-2xl sm:text-4xl font-bold mb-6">Request a Pick-Up</h2>
+            <input type="text" name="_gotcha" className="hidden" aria-hidden="true" />
             <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4" aria-label="Pickup booking form">
               <Input name="name" placeholder="Full name" required />
               <Input name="email" type="email" placeholder="Email" required />
