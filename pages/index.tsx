@@ -164,7 +164,7 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
                 <option>Restoration</option>
               </select>
               <textarea name="notes" placeholder="Sneaker model(s) & notes" className="bg-black border border-white/10 rounded-xl px-4 py-3 sm:col-span-2" rows={4} />
-              <label className="text-sm text-zinc-400">Upload sneaker photos (optional)</label>
+              <label className="sm:col-span-2 text-sm text-zinc-400">Upload sneaker photos (optional)</label>
               <input
                 type="file"
                 name="photos"
@@ -172,6 +172,12 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
                 multiple
                 className="sm:col-span-2 bg-black border border-white/10 rounded-xl px-4 py-3"
               />
+              <label className="sm:col-span-2 text-sm text-zinc-300 flex items-start gap-3">
+                <input required type="checkbox" className="mt-1"/>
+                <span>
+                  I agree to the <a href="/terms" className="underline">Terms of Service</a> and understand final pricing may change after inspection.
+                </span>
+              </label>
               <button className="sm:col-span-2 rounded-2xl bg-white text-black px-6 py-3 font-semibold">Request Pick-Up</button>
             </form>
           </div>
