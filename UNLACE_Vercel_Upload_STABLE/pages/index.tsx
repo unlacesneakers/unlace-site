@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import { ShieldCheck, Droplets, Brush, Truck, Stars, Clock, BadgeCheck, Mail } from "lucide-react";
-import Toast from "../components/Toast";
 
 function Card({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
   return (
@@ -20,29 +18,6 @@ function Input(props: React.InputHTMLAttributes<HTMLInputElement> & { className?
 }
 
 export default function Home() {
-  const router = useRouter();
-  const [toastOpen, setToastOpen] = useState(false);
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const res = await fetch("/api/pickup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(Object.fromEntries(formData as any)),
-    });
-    if (res.ok) {
-      setToastOpen(true);
-      setTimeout(() => {
-        setToastOpen(false);
-        router.push("/thank-you");
-      }, 2000);
-      (e.currentTarget as HTMLFormElement).reset();
-    } else {
-      alert("Something went wrong. Please try again.");
-    }
-  }
-
   return (
     <>
       <Head>
@@ -78,9 +53,6 @@ export default function Home() {
       </Head>
 
       <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
-        {/* Toast */}
-        <Toast open={toastOpen}>Request received — we’ll confirm shortly.</Toast>
-
         {/* Hero */}
         <section id="hero" className="relative border-b border-white/10">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24">
@@ -127,11 +99,19 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Pickup Booking */}
+        {/* Pickup Booking via Formspree */}
         <section id="pickup" className="bg-zinc-950 border-t border-white/10">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
             <h2 className="text-2xl sm:text-4xl font-bold mb-6">Request a Pick-Up</h2>
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4" aria-label="Pickup booking form">
+            {/* Replace the action URL with your Formspree endpoint */}
+            <form action="https://formspree.io/f/YOUR_ENDPOINT_ID" method="POST" className="grid grid-cols-1 sm:grid-cols-2 gap-4" aria-label="Pickup booking form">
+              {/* Redirect to thank-you */}
+              <input type="hidden" name="_next" value="/thank-you" />
+              {/* Email subject line */}
+              <input type="hidden" name="_subject" value="New UNLACE Pickup Request" />
+              {/* Spam honeypot */}
+              <input type="text" name="_gotcha" className="hidden" aria-hidden="true" />
+
               <Input name="name" placeholder="Full name" required />
               <Input name="email" type="email" placeholder="Email" required />
               <Input name="phone" placeholder="Phone" required className="sm:col-span-2" />
@@ -155,6 +135,7 @@ export default function Home() {
               <textarea name="notes" placeholder="Sneaker model(s) & notes" className="bg-black border border-white/10 rounded-xl px-4 py-3 sm:col-span-2" rows={4} />
               <button className="sm:col-span-2 rounded-2xl bg-white text-black px-6 py-3 font-semibold">Request Pick-Up</button>
             </form>
+            <p className="text-xs text-zinc-500 mt-3">Tip: Replace <code>YOUR_ENDPOINT_ID</code> with your Formspree form ID.</p>
           </div>
         </section>
 
