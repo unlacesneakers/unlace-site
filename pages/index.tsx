@@ -88,6 +88,8 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         />
       </Head>
 
+      <Header />
+
       <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
         {/* Toast */}
         <Toast open={toastOpen}>Request received — we’ll confirm shortly.</Toast>
