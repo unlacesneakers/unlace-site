@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 
 type Slide = { src: string; alt: string };
 
-// Curated images that fit UNLACE’s premium vibe (you can replace anytime)
 const SLIDES: Slide[] = [
   {
     src: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1600&auto=format&fit=crop",
@@ -21,9 +20,7 @@ const SLIDES: Slide[] = [
   },
 ];
 
-// Seconds per slide
 const INTERVAL = 4.5;
-// Drag threshold to trigger a swipe (in px)
 const SWIPE_THRESHOLD = 80;
 
 export default function TopBanner() {
@@ -32,14 +29,14 @@ export default function TopBanner() {
   const timerRef = useRef<number | null>(null);
   const hoverRef = useRef(false);
 
-  function next() {
+  const next = () => {
     setDirection(1);
     setIndex((i) => (i + 1) % SLIDES.length);
-  }
-  function prev() {
+  };
+  const prev = () => {
     setDirection(-1);
     setIndex((i) => (i - 1 + SLIDES.length) % SLIDES.length);
-  }
+  };
 
   function start() {
     stop();
@@ -70,7 +67,6 @@ export default function TopBanner() {
       onMouseEnter={() => (hoverRef.current = true)}
       onMouseLeave={() => (hoverRef.current = false)}
     >
-      {/* Slider height; tweak as you like */}
       <div className="relative h-56 sm:h-72 md:h-96 lg:h-[28rem] overflow-hidden">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.img
@@ -85,7 +81,6 @@ export default function TopBanner() {
             exit="exit"
             transition={{ duration: 0.5, ease: "easeOut" }}
             draggable={false}
-            // Swipe / drag
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             onDragEnd={(_, info) => {
@@ -96,19 +91,25 @@ export default function TopBanner() {
           />
         </AnimatePresence>
 
-        {/* Soft gradient for legibility */}
+        {/* Gradient overlay */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/50 via-black/10 to-black/60" />
 
-        {/* Optional badge text — remove if you want pure imagery */}
+        {/* Badge + CTA */}
         <div className="absolute inset-0 flex items-end">
-          <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 pb-6">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/90 text-black px-3 py-1 text-xs font-semibold">
+          <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 pb-6 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/90 text-black px-3 py-1 text-xs font-semibold w-max">
               UNLACE <span className="opacity-60">•</span> Melbourne’s Premium Sneaker Laundry
             </div>
+            <a
+              href="#pickup"
+              className="inline-flex items-center justify-center rounded-2xl bg-white text-black px-4 py-2 text-sm font-semibold hover:-translate-y-0.5 transition-transform w-max"
+            >
+              Book a Pickup
+            </a>
           </div>
         </div>
 
-        {/* Prev / Next arrows */}
+        {/* Arrows */}
         <button
           aria-label="Previous slide"
           onClick={prev}
