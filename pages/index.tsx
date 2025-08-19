@@ -11,7 +11,7 @@
 import React from "react";
 import Head from "next/head";
 import { motion } from "framer-motion";
-import TopBanner from "../components/TopBanner";
+import TopBanner from "../components/Topbanner";
 
 // ===== Icons (for cards & hero ticks) =====
 import {
