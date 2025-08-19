@@ -5,23 +5,29 @@ import { motion, AnimatePresence } from "framer-motion";
 
 type Slide = { src: string; alt: string };
 
-// Curated, royalty-free hypebeast vibe (Unsplash CDN)
+// Add a tiny cache-buster so CDN/browsers don't keep old images
+const cacheBust = (url: string) => `${url}${url.includes("?") ? "&" : "?"}ts=${Math.floor(Date.now() / (1000 * 60))}`;
+// ^ changes every minute; bump to /3600 for hourly if you prefer.
+
 const SLIDES: Slide[] = [
   {
-    src: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1920&auto=format&fit=crop",
-    alt: "Crisp white Nike sneaker — minimal studio shot",
+    // Jordan 1 street vibe
+    src: cacheBust("https://images.unsplash.com/photo-1520256862855-398228c41684?auto=format&fit=crop&w=1920&q=80"),
+    alt: "Air Jordan close-up — urban, hypebeast mood",
   },
   {
-    src: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1920&auto=format&fit=crop",
-    alt: "Streetwear look with high-top Jordan — urban mood",
+    // Nike Dunk style mood
+    src: cacheBust("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80"),
+    alt: "Nike high-top streetwear look — moody tones",
   },
   {
-    src: "https://images.unsplash.com/photo-1520256862855-398228c41684?q=80&w=1920&auto=format&fit=crop",
-    alt: "Monochrome sneaker close-up — premium detail",
+    // Air Max / lifestyle studio
+    src: cacheBust("https://images.unsplash.com/photo-1519741497683-56e16d1d7d5e?auto=format&fit=crop&w=1920&q=80"),
+    alt: "Lifestyle sneaker studio shot — premium detail",
   },
 ];
 
-const INTERVAL = 5;          // seconds per slide (slower = calmer)
+const INTERVAL = 5;          // seconds per slide (calm pace)
 const SWIPE_THRESHOLD = 90;  // px to trigger swipe
 
 export default function TopBanner() {
@@ -39,7 +45,6 @@ export default function TopBanner() {
     setIndex((i) => (i - 1 + SLIDES.length) % SLIDES.length);
   };
 
-  // autoplay
   const start = () => {
     stop();
     tRef.current = window.setTimeout(() => {
@@ -57,11 +62,10 @@ export default function TopBanner() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index]);
 
-  // Subtle motion
   const variants = {
-    enter: (d: 1 | -1) => ({ x: d * 40, opacity: 0 }),
+    enter: (d: 1 | -1) => ({ x: d * 36, opacity: 0 }),
     center: { x: 0, opacity: 1 },
-    exit: (d: 1 | -1) => ({ x: -d * 40, opacity: 0 }),
+    exit: (d: 1 | -1) => ({ x: -d * 36, opacity: 0 }),
   };
 
   return (
@@ -71,7 +75,6 @@ export default function TopBanner() {
       onMouseEnter={() => (hovering.current = true)}
       onMouseLeave={() => (hovering.current = false)}
     >
-      {/* Height: adjust if you prefer shorter/taller */}
       <div className="relative h-64 sm:h-80 md:h-[26rem] lg:h-[30rem] overflow-hidden">
         <AnimatePresence custom={dir} mode="wait">
           <motion.img
@@ -96,7 +99,7 @@ export default function TopBanner() {
           />
         </AnimatePresence>
 
-        {/* Gentle gradient for legibility without killing the image */}
+        {/* Gentle gradient for legibility */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/50" />
 
         {/* CTA (quiet, classy) */}
