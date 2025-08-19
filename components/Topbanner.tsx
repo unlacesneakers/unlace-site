@@ -5,30 +5,27 @@ import { motion, AnimatePresence } from "framer-motion";
 
 type Slide = { src: string; alt: string };
 
-// Add a tiny cache-buster so CDN/browsers don't keep old images
-const cacheBust = (url: string) => `${url}${url.includes("?") ? "&" : "?"}ts=${Math.floor(Date.now() / (1000 * 60))}`;
-// ^ changes every minute; bump to /3600 for hourly if you prefer.
-
 const SLIDES: Slide[] = [
   {
-    // Jordan 1 street vibe
-    src: cacheBust("https://images.unsplash.com/photo-1520256862855-398228c41684?auto=format&fit=crop&w=1920&q=80"),
-    alt: "Air Jordan close-up — urban, hypebeast mood",
+    src: "https://images.unsplash.com/photo-1606813907299-06c4b5f87a07?auto=format&fit=crop&w=1920&q=80",
+    alt: "Air Jordan 1 Retro High OG sneakers in street style",
   },
   {
-    // Nike Dunk style mood
-    src: cacheBust("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80"),
-    alt: "Nike high-top streetwear look — moody tones",
+    src: "https://images.unsplash.com/photo-1600185365483-26d7fa26e148?auto=format&fit=crop&w=1920&q=80",
+    alt: "Nike Dunk Low sneakers on urban pavement",
   },
   {
-    // Air Max / lifestyle studio
-    src: cacheBust("https://images.unsplash.com/photo-1519741497683-56e16d1d7d5e?auto=format&fit=crop&w=1920&q=80"),
-    alt: "Lifestyle sneaker studio shot — premium detail",
+    src: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=1920&q=80",
+    alt: "Adidas Yeezy Boost lifestyle shot",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1616469829581-739d46df65de?auto=format&fit=crop&w=1920&q=80",
+    alt: "Nike Air Max sneakers close up studio",
   },
 ];
 
-const INTERVAL = 5;          // seconds per slide (calm pace)
-const SWIPE_THRESHOLD = 90;  // px to trigger swipe
+const INTERVAL = 5;
+const SWIPE_THRESHOLD = 80;
 
 export default function TopBanner() {
   const [index, setIndex] = useState(0);
@@ -59,13 +56,12 @@ export default function TopBanner() {
   useEffect(() => {
     start();
     return stop;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index]);
 
   const variants = {
-    enter: (d: 1 | -1) => ({ x: d * 36, opacity: 0 }),
+    enter: (d: 1 | -1) => ({ x: d * 40, opacity: 0 }),
     center: { x: 0, opacity: 1 },
-    exit: (d: 1 | -1) => ({ x: -d * 36, opacity: 0 }),
+    exit: (d: 1 | -1) => ({ x: -d * 40, opacity: 0 }),
   };
 
   return (
@@ -82,7 +78,6 @@ export default function TopBanner() {
             src={SLIDES[index].src}
             alt={SLIDES[index].alt}
             className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: "50% 50%" }}
             custom={dir}
             variants={variants}
             initial="enter"
@@ -90,19 +85,13 @@ export default function TopBanner() {
             exit="exit"
             transition={{ duration: 0.6, ease: "easeOut" }}
             draggable={false}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            onDragEnd={(_, info) => {
-              if (info.offset.x < -SWIPE_THRESHOLD) next();
-              else if (info.offset.x > SWIPE_THRESHOLD) prev();
-            }}
           />
         </AnimatePresence>
 
-        {/* Gentle gradient for legibility */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/50" />
+        {/* Overlay gradient */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/60" />
 
-        {/* CTA (quiet, classy) */}
+        {/* CTA */}
         <div className="absolute inset-0 flex items-end">
           <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 pb-6 flex justify-end">
             <a
@@ -114,7 +103,7 @@ export default function TopBanner() {
           </div>
         </div>
 
-        {/* Arrows — understated */}
+        {/* Arrows */}
         <button
           aria-label="Previous slide"
           onClick={prev}
@@ -130,7 +119,7 @@ export default function TopBanner() {
           ›
         </button>
 
-        {/* Minimal dots */}
+        {/* Dots */}
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
           {SLIDES.map((_, i) => (
             <button
