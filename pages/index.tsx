@@ -96,7 +96,6 @@ export default function Home() {
       {/* ===== Sticky Header (brand + nav) ===== */}
       
       <Header />
-      <TopBanner />
 
       <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
         {/* ===== HERO ===== */}
@@ -145,6 +144,7 @@ export default function Home() {
             </motion.div>
           </div>
         </section>
+        <TopBanner />
 
         {/* ===== ABOUT ===== */}
         <section
