@@ -94,8 +94,9 @@ export default function Home() {
       </Head>
 
       {/* ===== Sticky Header (brand + nav) ===== */}
-      <TopBanner />
+      
       <Header />
+      <TopBanner />
 
       <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
         {/* ===== HERO ===== */}
