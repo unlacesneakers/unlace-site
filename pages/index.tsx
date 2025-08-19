@@ -11,6 +11,7 @@
 import React from "react";
 import Head from "next/head";
 import { motion } from "framer-motion";
+import TopBanner from "../components/TopBanner";
 
 // ===== Icons (for cards & hero ticks) =====
 import {
@@ -93,6 +94,7 @@ export default function Home() {
       </Head>
 
       {/* ===== Sticky Header (brand + nav) ===== */}
+      <TopBanner />
       <Header />
 
       <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
