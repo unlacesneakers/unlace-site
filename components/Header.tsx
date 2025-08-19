@@ -75,7 +75,7 @@ export default function Header() {
 
         {/* Nav */}
         <nav className="hidden md:flex items-center gap-6 text-sm">
-          <Link href="/" className={itemClass(pathIs("/") && active === "home"))}>
+          <Link href="/" className={itemClass(pathIs("/") && active === "home")}>
             Home
           </Link>
           {/* FIXED: removed extra ) at end of itemClass(...) */}
