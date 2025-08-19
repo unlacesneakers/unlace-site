@@ -1,7 +1,4 @@
 // components/Header.tsx
-// Sticky, minimal header with calm underline highlight.
-// Highlights Home/Privacy/Terms by path, and Services/Book while scrolling on the home page.
-
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
@@ -11,7 +8,6 @@ export default function Header() {
   const router = useRouter();
   const [active, setActive] = useState<"home" | "services" | "pickup" | null>(null);
 
-  // Observe #services and #pickup only on the home page
   useEffect(() => {
     if (router.pathname !== "/") {
       setActive(null);
@@ -40,7 +36,7 @@ export default function Header() {
         }
         const id = (visible.target as HTMLElement).id;
         if (id === "services") setActive("services");
-        if (id === "pickup") setActive("pickup");
+        else if (id === "pickup") setActive("pickup");
       },
       {
         rootMargin: "-20% 0px -55% 0px",
@@ -54,7 +50,6 @@ export default function Header() {
     return () => obs.disconnect();
   }, [router.pathname]);
 
-  // Neat underline (no layout shift)
   const itemClass = (isActive: boolean) =>
     [
       "relative transition-colors",
@@ -68,29 +63,15 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur supports-[backdrop-filter]:bg-black/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Brand → Home */}
         <Link href="/" className="text-xl font-extrabold tracking-wide hover:text-zinc-300">
           UNLACE
         </Link>
-
-        {/* Nav */}
         <nav className="hidden md:flex items-center gap-6 text-sm">
-          <Link href="/" className={itemClass(pathIs("/") && active === "home")}>
-            Home
-          </Link>
-          {/* FIXED: removed extra ) at end of itemClass(...) */}
-          <a href="/#services" className={itemClass(pathIs("/") && active === "services")}>
-            Services
-          </a>
-          <a href="/#pickup" className={itemClass(pathIs("/") && active === "pickup")}>
-            Book
-          </a>
-          <Link href="/privacy" className={itemClass(pathIs("/privacy"))}>
-            Privacy
-          </Link>
-          <Link href="/terms" className={itemClass(pathIs("/terms"))}>
-            Terms
-          </Link>
+          <Link href="/" className={itemClass(pathIs("/") && active === "home")}>Home</Link>
+          <a href="/#services" className={itemClass(pathIs("/") && active === "services")}>Services</a>
+          <a href="/#pickup" className={itemClass(pathIs("/") && active === "pickup")}>Book</a>
+          <Link href="/privacy" className={itemClass(pathIs("/privacy"))}>Privacy</Link>
+          <Link href="/terms" className={itemClass(pathIs("/terms"))}>Terms</Link>
         </nav>
       </div>
     </header>
