@@ -11,7 +11,7 @@
 import React from "react";
 import Head from "next/head";
 import { motion } from "framer-motion";
-import TopBanner from "../components/Topbanner";
+import Topbanner from "../components/Topbanner";
 
 // ===== Icons (for cards & hero ticks) =====
 import {
@@ -144,7 +144,7 @@ export default function Home() {
             </motion.div>
           </div>
         </section>
-        <TopBanner />
+        <Topbanner />
 
         {/* ===== ABOUT ===== */}
         <section
