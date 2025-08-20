@@ -323,7 +323,7 @@ export default function Home() {
                 className="bg-black border border-white/10 rounded-xl px-4 py-3 sm:col-span-2"
               />
 
-              {/* File upload (optional) — JPG/PNG/WebP only for best compatibility */
+              {/* File upload (optional) — JPG/PNG/WebP only for best compatibility */}
               <label className="sm:col-span-2 text-sm text-zinc-400">
                 Upload sneaker photos (optional) — JPG/PNG/WebP only, max 10MB each
               </label>
@@ -333,7 +333,8 @@ export default function Home() {
                 accept="image/jpeg,image/png,image/webp"
                 multiple
                 className="sm:col-span-2 bg-black border border-white/10 rounded-xl px-4 py-3"
-              />}
+              />
+              
 
               {/* Consent */}
               <label className="sm:col-span-2 text-sm text-zinc-300 flex items-start gap-3">
