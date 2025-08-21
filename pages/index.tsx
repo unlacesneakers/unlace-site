@@ -91,9 +91,9 @@ export default function Home() {
                 postalCode: "3000",
                 addressCountry: "AU",
               },
-              telephone: "+61XXXXXXXXX",
+              telephone: "+61452507067",
               url: "https://unlace.com.au",
-              sameAs: ["https://www.instagram.com/unlace"],
+              sameAs: ["https://www.instagram.com/unlacesneakers/#"],
             }),
           }}
         />
@@ -386,7 +386,7 @@ export default function Home() {
               </a>
               <span className="opacity-40">•</span>
               <a
-                href="https://instagram.com/unlace"
+                href="https://www.instagram.com/unlacesneakers/#"
                 className="hover:text-white"
                 target="_blank"
                 rel="noreferrer"
