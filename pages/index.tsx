@@ -251,7 +251,7 @@ export default function Home() {
             >
               {/* Formspree helper fields */}
               <input type="hidden" name="_subject" value="New UNLACE Pickup Request" />
-              <input type="hidden" name="_next" value="/thank-you" />
+              <input type="hidden" name="_next" value="https://unlace.com.au/thank-you" />
               <input type="text" name="_gotcha" className="hidden" aria-hidden="true" />
 
               {/* Contact & address */}
