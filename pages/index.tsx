@@ -19,6 +19,16 @@ import TopBanner from "../components/TopBanner";
 import GuaranteeStrip from "../components/GuaranteeStrip";
 import WhyChooseUs, { Benefit } from "../components/WhyChooseUs";
 
+// Define the benefits (the content list)
+const benefits: Benefit[] = [
+  { id: "b1", title: "Professional deep clean", desc: "From midsoles to laces — premium tools and solutions for every material." },
+  { id: "b2", title: "De-yellowing & whitening", desc: "Targeted treatments to revive oxidised rubber and aged soles." },
+  { id: "b3", title: "Pick-up & return", desc: "Door-to-door service across Melbourne. Convenient and secure." },
+  { id: "b4", title: "Care for rare pairs", desc: "Material-specific methods for suede, nubuck, canvas, leather and knit." },
+  { id: "b5", title: "Protection coating", desc: "Hydrophobic finish to keep pairs fresher for longer." },
+  { id: "b6", title: "Local & responsive", desc: "Fast turnaround with friendly updates via SMS/Instagram." },
+];
+
 // Icons
 import {
   ShieldCheck,
@@ -190,6 +200,7 @@ export default function Home() {
             looking as good as the day you copped them — or better.
           </p>
         </section>
+        <WhyChooseUs items={benefits} />
 
         {/* ========== SERVICES ========== */}
         <section
