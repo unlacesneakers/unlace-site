@@ -19,6 +19,8 @@ import TopBanner from "../components/TopBanner";
 import GuaranteeStrip from "../components/GuaranteeStrip";
 import WhyChooseUs, { Benefit } from "../components/WhyChooseUs";
 import ProcessSteps, { Step } from "../components/ProcessSteps";
+import FAQ, { QA } from "../components/FAQ";
+import SchemaFAQ from "../components/SchemaFAQ";
 
 
 // Define the benefits (the content list)
@@ -37,6 +39,33 @@ const steps: Step[] = [
   { id: "s2", title: "Assessment & quote", desc: "We inspect your pair and confirm any extras before starting." },
   { id: "s3", title: "Clean & treat", desc: "Deep clean + whitening options, lace swap and protection if selected." },
   { id: "s4", title: "Return like-new", desc: "Delivered back to you across Melbourne—ready to wear." },
+];
+
+// Define the FAQ items
+const faqs: QA[] = [
+  {
+    q: "How do pick-ups work?",
+    a: <>Use the booking form. We’ll confirm a window via SMS. Turnaround is usually 2–4 days depending on service.</>,
+  },
+  {
+    q: "Do you clean suede and delicate materials?",
+    a: <>Yes. We use material-specific products and soft-bristle brushes. For rare pairs, we confirm the approach before starting.</>,
+  },
+  {
+    q: "Payment & pricing?",
+    a: <>Pay after service via card or bank transfer. We’ll quote any Extras up-front so there are no surprises.</>,
+  },
+  {
+    q: "Where do you operate?",
+    a: <>Melbourne-wide pick-up & delivery. If you’re outside the area, message us on Instagram to arrange options.</>,
+  },
+];
+
+const faqsForSchema = [
+  { q: "How do pick-ups work?", a: "Use the booking form. We’ll confirm a window via SMS. Turnaround is usually 2–4 days depending on service." },
+  { q: "Do you clean suede and delicate materials?", a: "Yes. We use material-specific products and soft-bristle brushes. For rare pairs, we confirm the approach before starting." },
+  { q: "Payment & pricing?", a: "Pay after service via card or bank transfer. We’ll quote any Extras up-front so there are no surprises." },
+  { q: "Where do you operate?", a: "Melbourne-wide pick-up & delivery. If you’re outside the area, message us on Instagram to arrange options." },
 ];
 
 
@@ -271,6 +300,10 @@ export default function Home() {
 
         {/* Process Steps */}
         <ProcessSteps items={steps} />
+
+        {/* FAQ */}
+        <FAQ items={faqs} />
+        <SchemaFAQ items={faqsForSchema} />
 
         {/* Pick-Up form starts here */}
         {/* ========== PICKUP BOOKING (Formspree) ========== */}
