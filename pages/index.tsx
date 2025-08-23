@@ -17,6 +17,7 @@ const CONTACT = {
 import Header from "../components/Header";
 import TopBanner from "../components/TopBanner";
 import GuaranteeStrip from "../components/GuaranteeStrip";
+import WhyChooseUs, { Benefit } from "../components/WhyChooseUs";
 
 // Icons
 import {
