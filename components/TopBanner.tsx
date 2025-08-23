@@ -8,11 +8,11 @@ type Slide = { src: string; alt: string };
 const SLIDES: Slide[] = [
   {
     src: "/slide1.jpg",
-    alt: "Air Jordan 1 Retro hanging",
+    alt: "Air Jordan 1 Retro — premium sneaker cleaning result by UNLACE Melbourne",
   },
   {
     src: "/slide2.jpg",
-    alt: "Air Jordan 1 Landscape",
+    alt: "AJ1 close-up midsoles after deep clean — UNLACE sneaker atelier",
   },
 ];
 
@@ -77,6 +77,9 @@ export default function TopBanner() {
             exit="exit"
             transition={{ duration: 0.6, ease: "easeOut" }}
             draggable={false}
+            // 👇 performance tweak
+            loading={index === 0 ? "eager" : "lazy"}
+            decoding="async"
           />
         </AnimatePresence>
 
