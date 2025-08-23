@@ -144,7 +144,7 @@ export default function Home() {
                   <Truck className="h-4 w-4" /> Pick-up & delivery
                 </div>
                 <div className="flex items-center gap-2">
-                  <Clock className="h-4 w-4" /> 3 - 4 days*
+                  <Clock className="h-4 w-4" /> 3 to 4 days*
                 </div>
               </div>
             </motion.div>
