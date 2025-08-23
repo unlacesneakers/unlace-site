@@ -53,38 +53,39 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!process.env.RESEND_API_KEY) throw new Error("Missing RESEND_API_KEY");
     if (!process.env.PICKUP_TO_EMAIL) throw new Error("Missing PICKUP_TO_EMAIL");
 
-    // ---- Admin notification ----
-    console.log("[pickup] sending admin email to:", process.env.PICKUP_TO_EMAIL);
-    await resend.emails.send({
+  // ---- Admin notification ----
+  console.log("[pickup] sending admin email to:", process.env.PICKUP_TO_EMAIL);
+  const adminResult = await resend.emails.send({
+    from: FROM,
+    to: process.env.PICKUP_TO_EMAIL!,
+    subject: `New UNLACE Pickup Request${service_tier ? " — " + service_tier : ""}`,
+    reply_to: email || undefined,
+    text: [
+      `Name: ${name || "-"}`,
+      `Email: ${email || "-"}`,
+      `Phone: ${phone || "-"}`,
+      `Address: ${address || "-"}, ${suburb || "-"} ${postcode || "-"}`,
+      `Date: ${date || "-"}`,
+      `Time Window: ${time_window || "-"}`,
+      `Service Tier: ${service_tier || "-"}`,
+      `Extras: ${extras.length ? extras.join(", ") : "-"}`,
+      `Notes: ${notes || "-"}`,
+    ].join("\n"),
+  });
+  console.log("[pickup] admin result:", JSON.stringify(adminResult));
+  
+  // ---- Customer auto-reply ----
+  if (email) {
+    console.log("[pickup] sending auto-reply to:", email);
+    const customerResult = await resend.emails.send({
       from: FROM,
-      to: process.env.PICKUP_TO_EMAIL!,
-      subject: `New UNLACE Pickup Request${service_tier ? " — " + service_tier : ""}`,
-      reply_to: email || undefined,
-      text: [
-        `Name: ${name || "-"}`,
-        `Email: ${email || "-"}`,
-        `Phone: ${phone || "-"}`,
-        `Address: ${address || "-"}, ${suburb || "-"} ${postcode || "-"}`,
-        `Date: ${date || "-"}`,
-        `Time Window: ${time_window || "-"}`,
-        `Service Tier: ${service_tier || "-"}`,
-        `Extras: ${extras.length ? extras.join(", ") : "-"}`,
-        `Notes: ${notes || "-"}`,
-      ].join("\n"),
+      to: email,
+      subject: "We received your UNLACE pickup request",
+      text: `Thanks ${name || ""}, we’ve received your request and will confirm your pickup window shortly.\n\n— UNLACE`,
     });
-    console.log("[pickup] admin email send attempt done");
+    console.log("[pickup] customer result:", JSON.stringify(customerResult));
+  }
 
-    // ---- Customer auto-reply ----
-    if (email) {
-      console.log("[pickup] sending auto-reply to:", email);
-      await resend.emails.send({
-        from: FROM,
-        to: email,
-        subject: "We received your UNLACE pickup request",
-        text: `Thanks ${name || ""}, we’ve received your request and will confirm your pickup window shortly.\n\n— UNLACE`,
-      });
-      console.log("[pickup] auto-reply attempt done");
-    }
 
     // ---- Response ----
     const accepts = String(req.headers.accept || "");
