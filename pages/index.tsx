@@ -18,6 +18,8 @@ import Header from "../components/Header";
 import TopBanner from "../components/TopBanner";
 import GuaranteeStrip from "../components/GuaranteeStrip";
 import WhyChooseUs, { Benefit } from "../components/WhyChooseUs";
+import ProcessSteps, { Step } from "../components/ProcessSteps";
+
 
 // Define the benefits (the content list)
 const benefits: Benefit[] = [
@@ -28,6 +30,15 @@ const benefits: Benefit[] = [
   { id: "b5", title: "Protection coating", desc: "Hydrophobic finish to keep pairs fresher for longer." },
   { id: "b6", title: "Local & responsive", desc: "Fast turnaround with friendly updates via SMS/Instagram." },
 ];
+
+// Define the Steps
+const steps: Step[] = [
+  { id: "s1", title: "Request a pick-up", desc: "Use the booking form. We’ll confirm a time via SMS." },
+  { id: "s2", title: "Assessment & quote", desc: "We inspect your pair and confirm any extras before starting." },
+  { id: "s3", title: "Clean & treat", desc: "Deep clean + whitening options, lace swap and protection if selected." },
+  { id: "s4", title: "Return like-new", desc: "Delivered back to you across Melbourne—ready to wear." },
+];
+
 
 // Icons
 import {
@@ -202,6 +213,7 @@ export default function Home() {
         </section>
         <WhyChooseUs items={benefits} />
 
+        {/* Services section starts here */}
         {/* ========== SERVICES ========== */}
         <section
           id="services"
@@ -254,8 +266,13 @@ export default function Home() {
               />
             </div>
           </div>
+        {/* Services section ends here */}
         </section>
 
+        {/* Process Steps */}
+        <ProcessSteps items={steps} />
+
+        {/* Pick-Up form starts here */}
         {/* ========== PICKUP BOOKING (Formspree) ========== */}
         <section id="pickup" className="bg-zinc-950 border-t border-white/10 scroll-mt-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
