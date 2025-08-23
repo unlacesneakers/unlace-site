@@ -47,6 +47,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   console.log("[pickup] to:", process.env.PICKUP_TO_EMAIL);
   console.log("[pickup] from:", FROM);
   console.log("[pickup] got keys:", Object.keys(b || {}));
+  console.log("[pickup] using RESEND_API_KEY prefix:", process.env.RESEND_API_KEY?.slice(0,6));
 
   try {
     if (!process.env.RESEND_API_KEY) throw new Error("Missing RESEND_API_KEY");
