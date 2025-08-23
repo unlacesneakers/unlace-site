@@ -17,7 +17,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // ---- Honeypot (spam) ----
   const honeypot = (req.body?.honeypot || req.body?._gotcha || "").toString();
   if (honeypot.trim().length > 0) {
-    // Pretend success & redirect – bots bail out here.
     res.writeHead(303, { Location: "/thank-you" });
     return res.end();
   }
@@ -44,7 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     ? [String(b["extras[]"])]
     : [];
 
-  // ---- Quick diagnostics (visible in Vercel → Functions → /api/pickup → Logs) ----
+  // ---- Quick diagnostics ----
   console.log("[pickup] to:", process.env.PICKUP_TO_EMAIL);
   console.log("[pickup] from:", FROM);
   console.log("[pickup] got keys:", Object.keys(b || {}));
@@ -54,6 +53,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!process.env.PICKUP_TO_EMAIL) throw new Error("Missing PICKUP_TO_EMAIL");
 
     // ---- Admin notification ----
+    console.log("[pickup] sending admin email to:", process.env.PICKUP_TO_EMAIL);
     await resend.emails.send({
       from: FROM,
       to: process.env.PICKUP_TO_EMAIL!,
@@ -71,18 +71,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         `Notes: ${notes || "-"}`,
       ].join("\n"),
     });
+    console.log("[pickup] admin email send attempt done");
 
-    // ---- Customer auto-reply (optional) ----
+    // ---- Customer auto-reply ----
     if (email) {
+      console.log("[pickup] sending auto-reply to:", email);
       await resend.emails.send({
         from: FROM,
         to: email,
         subject: "We received your UNLACE pickup request",
         text: `Thanks ${name || ""}, we’ve received your request and will confirm your pickup window shortly.\n\n— UNLACE`,
       });
+      console.log("[pickup] auto-reply attempt done");
     }
 
-    // ---- Decide response: JSON for XHR/fetch, redirect for HTML form ----
+    // ---- Response ----
     const accepts = String(req.headers.accept || "");
     const wantsJSON =
       accepts.includes("application/json") ||
@@ -93,7 +96,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(200).json({ ok: true });
     }
 
-    // HTML form POST → redirect to Thank You
     res.writeHead(303, { Location: "/thank-you" });
     return res.end();
   } catch (err: any) {
@@ -109,11 +111,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(500).json({ ok: false, error: err?.message || "Unknown error" });
     }
 
-    // Even on error, keep UX smooth
     res.writeHead(303, { Location: "/thank-you" });
     return res.end();
   }
 }
 
-// Default bodyParser works for application/x-www-form-urlencoded HTML forms.
 export const config = { api: { bodyParser: true } };
