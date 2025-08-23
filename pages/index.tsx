@@ -22,7 +22,6 @@ import ProcessSteps, { Step } from "../components/ProcessSteps";
 import FAQ, { QA } from "../components/FAQ";
 import SchemaFAQ from "../components/SchemaFAQ";
 
-
 // Define the benefits (the content list)
 const benefits: Benefit[] = [
   { id: "b1", title: "Professional deep clean", desc: "From midsoles to laces — premium tools and solutions for every material." },
@@ -41,33 +40,37 @@ const steps: Step[] = [
   { id: "s4", title: "Return like-new", desc: "Delivered back to you across Melbourne—ready to wear." },
 ];
 
-// Define the FAQ items
+// Refined FAQ (premium tone)
 const faqs: QA[] = [
   {
     q: "How do pick-ups work?",
-    a: <>Use the booking form. We’ll confirm a window via SMS. Turnaround is usually 2–4 days depending on service.</>,
+    a: <>Book through our online form and select a time window. We’ll confirm via SMS and handle the rest. Standard turnaround is 2–4 days depending on service and condition.</>,
   },
   {
     q: "Do you clean suede and delicate materials?",
-    a: <>Yes. We use material-specific products and soft-bristle brushes. For rare pairs, we confirm the approach before starting.</>,
+    a: <>Yes — suede, nubuck, mesh, and premium leathers are all cleaned with specialist tools and eco-safe solutions. Each material is treated with tailored techniques to protect its texture and integrity.</>,
   },
   {
-    q: "Payment & pricing?",
-    a: <>Pay after service via card or bank transfer. We’ll quote any Extras up-front so there are no surprises.</>,
+    q: "How does pricing and payment work?",
+    a: <>Our listed prices cover most pairs. If extras are needed, we confirm them with you before starting. Payment is made after service via card or transfer — no hidden costs, ever.</>,
   },
   {
     q: "Where do you operate?",
-    a: <>Melbourne-wide pick-up & delivery. If you’re outside the area, message us on Instagram to arrange options.</>,
+    a: <>We offer pick-up and delivery across Melbourne. If you’re outside the area, get in touch via Instagram and we’ll try to arrange a solution.</>,
+  },
+  {
+    q: "What if I’m not satisfied with the result?",
+    a: <>We stand by our work. If you’re not happy, we’ll re-clean or make it right — because every sneaker deserves a finish we’re proud of.</>,
   },
 ];
 
 const faqsForSchema = [
-  { q: "How do pick-ups work?", a: "Use the booking form. We’ll confirm a window via SMS. Turnaround is usually 2–4 days depending on service." },
-  { q: "Do you clean suede and delicate materials?", a: "Yes. We use material-specific products and soft-bristle brushes. For rare pairs, we confirm the approach before starting." },
-  { q: "Payment & pricing?", a: "Pay after service via card or bank transfer. We’ll quote any Extras up-front so there are no surprises." },
-  { q: "Where do you operate?", a: "Melbourne-wide pick-up & delivery. If you’re outside the area, message us on Instagram to arrange options." },
+  { q: "How do pick-ups work?", a: "Book through our online form and select a time window. We’ll confirm via SMS. Standard turnaround is 2–4 days depending on service and condition." },
+  { q: "Do you clean suede and delicate materials?", a: "Yes — suede, nubuck, mesh, and premium leathers are cleaned with specialist tools and eco-safe solutions. Each material is treated with tailored techniques." },
+  { q: "How does pricing and payment work?", a: "Our listed prices cover most pairs. If extras are needed, we confirm them before starting. Payment is made after service via card or transfer." },
+  { q: "Where do you operate?", a: "We offer pick-up and delivery across Melbourne. If you’re outside the area, message us on Instagram to arrange options." },
+  { q: "What if I’m not satisfied with the result?", a: "If you’re not happy, we’ll re-clean or make it right — because every sneaker deserves a finish we’re proud of." },
 ];
-
 
 // Icons
 import {
@@ -166,7 +169,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
             >
-              {/* Strapline — updated to 'Sneaker Atelier' */}
+              {/* Strapline — 'Sneaker Atelier' */}
               <p className="uppercase tracking-[0.35em] text-zinc-400 text-xs mb-3">
                 Australia’s Premium Sneaker Atelier
               </p>
@@ -175,8 +178,8 @@ export default function Home() {
                 UNLACE your sneakers — relace your style.
               </h1>
               <p className="mt-4 text-zinc-300 max-w-2xl">
-                From grails to beaters, we revive every pair with precision cleaning
-                and restoration. Pick-up & delivery across Melbourne.
+                From daily beaters to grail-level pairs, UNLACE restores sneakers with precision
+                techniques and eco-safe care. Door-to-door pick-up & return across Melbourne.
               </p>
               <div className="mt-8 flex gap-4">
                 <a
@@ -220,29 +223,23 @@ export default function Home() {
         >
           <h2 className="text-2xl sm:text-4xl font-bold mb-4">About Us</h2>
           <p className="text-zinc-300 mb-4">
-            At UNLACE, we believe your sneakers are more than just shoes — they’re
-            a statement, a memory, and an investment worth protecting. Founded in
-            Melbourne, our mission is to deliver world-class sneaker cleaning,
-            restoration, and care to sneakerheads, collectors, and everyday
-            wearers alike.
+            At UNLACE, we believe sneakers are more than just footwear — they’re culture, memory, and investment.
+            Founded in Melbourne, our mission is simple: to give every pair the same meticulous care we give our own.
           </p>
           <p className="text-zinc-300 mb-4">
-            Our team is made up of passionate sneaker enthusiasts who understand
-            the unique needs of different materials, from premium leather to
-            delicate suede. We combine expert craftsmanship with eco-friendly
-            products, ensuring every pair receives meticulous attention without
-            compromising the planet.
+            Our team is made up of sneakerheads who understand the nuances of premium materials. From delicate suede
+            to aged rubber, every clean is tailored with eco-safe solutions and specialist techniques.
           </p>
           <p className="text-zinc-300">
-            Whether it’s reviving your beaters, preserving your grails, or getting
-            your daily rotation looking fresh, UNLACE offers Melbourne-wide pick-up
-            and delivery for ultimate convenience. We’re here to keep your kicks
-            looking as good as the day you copped them — or better.
+            Whether it’s reviving beaters, preserving grails, or refreshing your daily rotation, UNLACE offers
+            convenient Melbourne-wide pick-up and return. Every sneaker is treated with precision, passion, and
+            respect — so they look and feel as good as the day you copped them.
           </p>
         </section>
+
+        {/* ✅ Why Choose Us */}
         <WhyChooseUs items={benefits} />
 
-        {/* Services section starts here */}
         {/* ========== SERVICES ========== */}
         <section
           id="services"
@@ -257,19 +254,19 @@ export default function Home() {
             <Card
               icon={<Droplets className="h-6 w-6" />}
               title="Essential Clean"
-              desc="Exterior-only clean for uppers & midsoles — fast refresh for daily wear."
+              desc="A quick reset for your daily rotation. Exterior clean of uppers & midsoles — restores freshness without the wait."
               price="$39"
             />
             <Card
               icon={<Droplets className="h-6 w-6" />}
               title="Premium Detail"
-              desc="Deep clean of upper, midsole, insole & laces + deodorising. Material-safe for leather, mesh, suede & nubuck."
+              desc="Full inside-out deep clean: uppers, midsoles, insoles & laces. Material-safe for leather, mesh, suede & nubuck — finished with deodorising."
               price="$69"
             />
             <Card
               icon={<Stars className="h-6 w-6" />}
-              title="Whitening & De-yellowing"
-              desc="Icy sole restoration and stain reduction for that fresh-out-the-box feel."
+              title="Icy Sole Revival"
+              desc="Reverse yellowing and oxidation with targeted whitening & stain treatment. Bring back that fresh-out-the-box glow."
               price="From $129"
             />
           </div>
@@ -278,24 +275,23 @@ export default function Home() {
           <div className="mt-10">
             <h3 className="text-lg font-semibold">Extras</h3>
             <p className="text-sm text-zinc-400 mt-1">
-              Add-ons you can include with any service.
+              Custom add-ons to elevate your clean.
             </p>
             <div className="grid md:grid-cols-2 gap-6 mt-4">
               <Card
                 icon={<BadgeCheck className="h-6 w-6" />}
                 title="Protection Coating"
-                desc="Water & stain repellent to keep your kicks cleaner for longer."
+                desc="Hydrophobic layer that repels water & stains — keep your sneakers fresher for longer."
                 price="$20"
               />
               <Card
                 icon={<BadgeCheck className="h-6 w-6" />}
                 title="Lace Swap"
-                desc="Fresh laces or custom swap — fitted to your pair."
+                desc="Swap in fresh stock laces or customise with a premium replacement — fitted to your pair."
                 price="$10–$15"
               />
             </div>
           </div>
-        {/* Services section ends here */}
         </section>
 
         {/* Process Steps */}
@@ -305,7 +301,6 @@ export default function Home() {
         <FAQ items={faqs} />
         <SchemaFAQ items={faqsForSchema} />
 
-        {/* Pick-Up form starts here */}
         {/* ========== PICKUP BOOKING (Formspree) ========== */}
         <section id="pickup" className="bg-zinc-950 border-t border-white/10 scroll-mt-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
@@ -444,15 +439,22 @@ export default function Home() {
         {/* ========== FOOTER ========== */}
         <footer id="contact" className="border-t border-white/10">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-zinc-400">
-            <div>© {new Date().getFullYear()} UNLACE — Melbourne, VIC</div>
-            <div className="flex items-center gap-4">
+            {/* Brand tagline */}
+            <div className="text-center md:text-left">
+              <p className="font-semibold text-white">UNLACE — Melbourne’s Sneaker Atelier</p>
+              <p className="mt-1 text-zinc-400">
+                Trusted care for your kicks, from pick-up to return.
+              </p>
+            </div>
+
+            {/* Contact + links */}
+            <div className="flex flex-col items-center md:items-end gap-2 md:gap-3">
               <a
                 href={`mailto:${CONTACT.email}`}
                 className="hover:text-white flex items-center gap-1"
               >
                 <Mail className="h-4 w-4" /> {CONTACT.email}
               </a>
-              <span className="opacity-40">•</span>
               <a
                 href={CONTACT.instagram}
                 className="hover:text-white"
@@ -461,14 +463,16 @@ export default function Home() {
               >
                 Instagram
               </a>
-              <span className="opacity-40">•</span>
-              <a href="/privacy" className="hover:text-white">
-                Privacy
-              </a>
-              <span className="opacity-40">•</span>
-              <a href="/terms" className="hover:text-white">
-                Terms
-              </a>
+
+              <div className="flex gap-3 text-xs mt-2">
+                <a href="/privacy" className="hover:text-white">Privacy</a>
+                <span className="opacity-40">•</span>
+                <a href="/terms" className="hover:text-white">Terms</a>
+              </div>
+
+              <p className="text-xs text-zinc-500 mt-2">
+                © {new Date().getFullYear()} UNLACE — Melbourne, VIC
+              </p>
             </div>
           </div>
         </footer>
