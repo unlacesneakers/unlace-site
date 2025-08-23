@@ -347,8 +347,8 @@ export default function Home() {
             <h2 className="text-2xl sm:text-4xl font-bold mb-6">Request a Pick-Up</h2>
 
             <form
+              action="/api/pickup"
               method="POST"
-              onSubmit="https://getform.io/f/ayveknob"
               className="grid grid-cols-1 sm:grid-cols-2 gap-4"
               aria-label="Pickup booking form"
             >
