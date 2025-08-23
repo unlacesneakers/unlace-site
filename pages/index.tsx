@@ -313,7 +313,7 @@ export default function Home() {
               aria-label="Pickup booking form"
             >
               {/* Formspree helper fields */}
-              <input type="hidden" name="_subject" value="New UNLACE Pickup Request" />
+              <input type="hidden" id="subjectField" name="_subject" value="New UNLACE Pickup Request" />
               <input type="hidden" name="_next" value="https://unlace.com.au/thank-you" />
               <input type="text" name="_gotcha" className="hidden" aria-hidden="true" />
 
@@ -380,12 +380,19 @@ export default function Home() {
                 name="service_tier"
                 required
                 className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30"
+                onChange={(e) => {
+                  const subjectField = document.getElementById("subjectField") as HTMLInputElement | null;
+                  if (subjectField) {
+                    subjectField.value = `New UNLACE Pickup Request — ${e.target.value}`;
+                  }
+                }}
               >
                 <option value="">Service tier</option>
-                <option>Essential Clean</option>
-                <option>Premium Detail</option>
+                <option value="Essential Clean">Essential Clean</option>
+                <option value="Premium Detail">Premium Detail</option>
                 <option value="Icy Sole Revival">Icy Sole Revival</option>
               </select>
+
 
               {/* Extras (right) */}
               <fieldset className="bg-black border border-white/10 rounded-xl px-4 py-3">
