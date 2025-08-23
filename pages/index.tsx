@@ -1,22 +1,22 @@
 // pages/index.tsx
-// UNLACE — Melbourne’s Premium Sneaker Laundry
-// Next.js + Tailwind + Framer Motion
-// - Sticky header (components/Header.tsx)
-// - Top banner (components/TopBanner.tsx)
-// - Services with price badges
-// - Booking form (Formspree) — no file upload
-// - Extras beside service tier
-// - Smooth scroll & premium minimal look
+// UNLACE — Melbourne’s Premium Sneaker Atelier
 
 import React from "react";
 import Head from "next/head";
 import { motion } from "framer-motion";
 
+// Centralized contact details (edit here once)
+const CONTACT = {
+  email: "unlacesneakers@gmail.com",
+  phone: "+61452507067",
+  instagram: "https://www.instagram.com/unlacesneakers/#",
+  siteUrl: "https://unlace.com.au",
+};
+
 // Components
 import Header from "../components/Header";
 import TopBanner from "../components/TopBanner";
-import dynamic from "next/dynamic";
-const GuaranteeStrip = dynamic(() => import("../components/GuaranteeStrip"), { ssr: false });
+import GuaranteeStrip from "../components/GuaranteeStrip";
 
 // Icons
 import {
@@ -61,12 +61,12 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>UNLACE — Melbourne’s Premium Sneaker Laundry</title>
+        <title>UNLACE — Melbourne’s Premium Sneaker Atelier</title>
         <meta
           name="description"
           content="UNLACE offers premium sneaker cleaning, restoration, and protection with Melbourne-wide pick-up & delivery."
         />
-        <meta property="og:title" content="UNLACE — Melbourne’s Premium Sneaker Laundry" />
+        <meta property="og:title" content="UNLACE — Melbourne’s Premium Sneaker Atelier" />
         <meta
           property="og:description"
           content="Premium sneaker cleaning, restoration, and protection with Melbourne-wide pick-up & delivery."
@@ -75,7 +75,8 @@ export default function Home() {
         <meta property="og:image" content="/og-image.jpg" />
         <link rel="icon" href="/favicon.ico" />
         <style>{`html{scroll-behavior:smooth}`}</style>
-        {/* Basic LocalBusiness schema */}
+
+        {/* LocalBusiness schema with centralized contact */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -93,18 +94,17 @@ export default function Home() {
                 postalCode: "3000",
                 addressCountry: "AU",
               },
-              telephone: "+61452507067",
-              url: "https://unlace.com.au",
-              sameAs: ["https://www.instagram.com/unlacesneakers/#"],
+              telephone: CONTACT.phone,
+              email: CONTACT.email,
+              url: CONTACT.siteUrl,
+              sameAs: [CONTACT.instagram],
             }),
           }}
         />
       </Head>
 
-      {/* -------- Top banner + sticky header -------- */}
-      
+      {/* -------- Header -------- */}
       <Header />
-      <GuaranteeStrip />
 
       <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
         {/* ========== HERO ========== */}
@@ -115,9 +115,11 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
             >
+              {/* Strapline — updated to 'Sneaker Atelier' */}
               <p className="uppercase tracking-[0.35em] text-zinc-400 text-xs mb-3">
-                Australia’s Premium Sneaker Laundry
+                Australia’s Premium Sneaker Atelier
               </p>
+
               <h1 className="text-4xl sm:text-6xl font-extrabold">
                 UNLACE your sneakers — relace your style.
               </h1>
@@ -154,6 +156,10 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ✅ Guarantee bar right after Hero */}
+        <GuaranteeStrip />
+
+        {/* TopBanner carousel */}
         <TopBanner />
 
         {/* ========== ABOUT ========== */}
@@ -184,7 +190,7 @@ export default function Home() {
           </p>
         </section>
 
-        {/* ========== SERVICES (with price badges) ========== */}
+        {/* ========== SERVICES ========== */}
         <section
           id="services"
           className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 scroll-mt-24"
@@ -238,11 +244,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ========== PICKUP BOOKING (Formspree, no file upload) ========== */}
-        <section
-          id="pickup"
-          className="bg-zinc-950 border-t border-white/10 scroll-mt-24"
-        >
+        {/* ========== PICKUP BOOKING (Formspree) ========== */}
+        <section id="pickup" className="bg-zinc-950 border-t border-white/10 scroll-mt-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
             <h2 className="text-2xl sm:text-4xl font-bold mb-6">Request a Pick-Up</h2>
 
@@ -382,14 +385,14 @@ export default function Home() {
             <div>© {new Date().getFullYear()} UNLACE — Melbourne, VIC</div>
             <div className="flex items-center gap-4">
               <a
-                href="mailto:hello@unlace.com.au"
+                href={`mailto:${CONTACT.email}`}
                 className="hover:text-white flex items-center gap-1"
               >
-                <Mail className="h-4 w-4" /> hello@unlace.com.au
+                <Mail className="h-4 w-4" /> {CONTACT.email}
               </a>
               <span className="opacity-40">•</span>
               <a
-                href="https://www.instagram.com/unlacesneakers/#"
+                href={CONTACT.instagram}
                 className="hover:text-white"
                 target="_blank"
                 rel="noreferrer"
