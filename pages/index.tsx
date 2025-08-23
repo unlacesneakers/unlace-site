@@ -13,6 +13,9 @@ const CONTACT = {
   siteUrl: "https://unlace.com.au",
 };
 
+// getform endpoint constant
+const GETFORM_ENDPOINT = "https://getform.io/f/ayveknob";
+
 // Components
 import Header from "../components/Header";
 import TopBanner from "../components/TopBanner";
@@ -21,9 +24,6 @@ import WhyChooseUs, { Benefit } from "../components/WhyChooseUs";
 import ProcessSteps, { Step } from "../components/ProcessSteps";
 import FAQ, { QA } from "../components/FAQ";
 import SchemaFAQ from "../components/SchemaFAQ";
-
-// getform endpoint constant
-const GETFORM_ENDPOINT = "https://getform.io/f/ayveknob";
 
 // Define the benefits (the content list)
 const benefits: Benefit[] = [
