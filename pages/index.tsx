@@ -120,7 +120,10 @@ export default function Home() {
     e.preventDefault();
     const form = e.currentTarget;
     const submitBtn = form.querySelector("button[type='submit']") as HTMLButtonElement | null;
-  
+    
+    // For debugging — you should see this when you click submit
+    console.log("[UNLACE] Submitting pickup form…");
+      
     // Build form data
     const data = new FormData(form);
   
@@ -344,14 +347,13 @@ export default function Home() {
             <h2 className="text-2xl sm:text-4xl font-bold mb-6">Request a Pick-Up</h2>
 
             <form
-              onSubmit="https://getform.io/f/ayveknob"
               method="POST"
+              onSubmit="https://getform.io/f/ayveknob"
               className="grid grid-cols-1 sm:grid-cols-2 gap-4"
               aria-label="Pickup booking form"
             >
               {/* Formspree helper fields */}
               <input type="hidden" id="subjectField" name="_subject" value="New UNLACE Pickup Request" />
-              <input type="hidden" name="redirect" value="https://unlace.com.au/thank-you" />
               <input type="text" name="honeypot" className="hidden" aria-hidden="true" />
 
               {/* Contact & address */}
@@ -469,7 +471,7 @@ export default function Home() {
               </label>
 
               {/* Submit */}
-              <button className="sm:col-span-2 rounded-2xl bg-white text-black px-6 py-3 font-semibold hover:-translate-y-0.5 transition-transform">
+              <button type="submit" className="sm:col-span-2 rounded-2xl bg-white text-black px-6 py-3 font-semibold hover:-translate-y-0.5 transition-transform">
                 Request Pick-Up
               </button>
 
