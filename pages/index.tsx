@@ -15,6 +15,8 @@ import { motion } from "framer-motion";
 // Components
 import Header from "../components/Header";
 import TopBanner from "../components/TopBanner";
+import dynamic from "next/dynamic";
+const GuaranteeStrip = dynamic(() => import("../components/GuaranteeStrip"), { ssr: false });
 
 // Icons
 import {
@@ -102,6 +104,7 @@ export default function Home() {
       {/* -------- Top banner + sticky header -------- */}
       
       <Header />
+      <GuaranteeStrip />
 
       <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
         {/* ========== HERO ========== */}
