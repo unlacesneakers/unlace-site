@@ -25,7 +25,7 @@ import SchemaFAQ from "../components/SchemaFAQ";
 // Define the benefits (the content list)
 const benefits: Benefit[] = [
   { id: "b1", title: "Professional deep clean", desc: "From midsoles to laces — premium tools and solutions for every material." },
-  { id: "b2", title: "De-yellowing & whitening", desc: "Targeted treatments to revive oxidised rubber and aged soles." },
+  { id: "b2", title: "Icy sole revival & whitening", desc: "Targeted treatments to revive oxidised rubber and aged soles." },
   { id: "b3", title: "Pick-up & return", desc: "Door-to-door service across Melbourne. Convenient and secure." },
   { id: "b4", title: "Care for rare pairs", desc: "Material-specific methods for suede, nubuck, canvas, leather and knit." },
   { id: "b5", title: "Protection coating", desc: "Hydrophobic finish to keep pairs fresher for longer." },
@@ -384,7 +384,7 @@ export default function Home() {
                 <option value="">Service tier</option>
                 <option>Essential Clean</option>
                 <option>Premium Detail</option>
-                <option>Whitening & De-yellowing</option>
+                <option value="Icy Sole Revival">Icy Sole Revival</option>
               </select>
 
               {/* Extras (right) */}
