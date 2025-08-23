@@ -22,6 +22,9 @@ import ProcessSteps, { Step } from "../components/ProcessSteps";
 import FAQ, { QA } from "../components/FAQ";
 import SchemaFAQ from "../components/SchemaFAQ";
 
+// getform endpoint constant
+const GETFORM_ENDPOINT = "https://getform.io/f/ayveknob";
+
 // Define the benefits (the content list)
 const benefits: Benefit[] = [
   { id: "b1", title: "Professional deep clean", desc: "From midsoles to laces — premium tools and solutions for every material." },
@@ -112,6 +115,40 @@ function Card({
 }
 
 export default function Home() {
+  // Booking form submit handler
+    const handlePickupSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const submitBtn = form.querySelector("button[type='submit']") as HTMLButtonElement | null;
+  
+    // Build form data
+    const data = new FormData(form);
+  
+    try {
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Submitting…";
+      }
+  
+      await fetch(GETFORM_ENDPOINT, {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+  
+      // Client-side redirect to your page
+      window.location.href = "/thank-you";
+    } catch (err) {
+      // Optional: show a simple error message
+      alert("Sorry, something went wrong. Please try again.");
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Request Pick-Up";
+      }
+    }
+  };
+
   return (
     <>
       <Head>
@@ -307,7 +344,7 @@ export default function Home() {
             <h2 className="text-2xl sm:text-4xl font-bold mb-6">Request a Pick-Up</h2>
 
             <form
-              action="https://getform.io/f/ayveknob"
+              onSubmit="https://getform.io/f/ayveknob"
               method="POST"
               className="grid grid-cols-1 sm:grid-cols-2 gap-4"
               aria-label="Pickup booking form"
@@ -315,7 +352,7 @@ export default function Home() {
               {/* Formspree helper fields */}
               <input type="hidden" id="subjectField" name="_subject" value="New UNLACE Pickup Request" />
               <input type="hidden" name="redirect" value="https://unlace.com.au/thank-you" />
-              <input type="text" name="_gotcha" className="hidden" aria-hidden="true" />
+              <input type="text" name="honeypot" className="hidden" aria-hidden="true" />
 
               {/* Contact & address */}
               <input
