@@ -7,20 +7,12 @@ type Slide = { src: string; alt: string };
 
 const SLIDES: Slide[] = [
   {
-    src: "https://images.unsplash.com/photo-1606813907299-06c4b5f87a07?auto=format&fit=crop&w=1920&q=80",
-    alt: "Air Jordan 1 Retro High OG sneakers in street style",
+    src: "/slide1.jpg",
+    alt: "Air Jordan 1 Retro hanging",
   },
   {
-    src: "https://images.unsplash.com/photo-1600185365483-26d7fa26e148?auto=format&fit=crop&w=1920&q=80",
-    alt: "Nike Dunk Low sneakers on urban pavement",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=1920&q=80",
-    alt: "Adidas Yeezy Boost lifestyle shot",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1616469829581-739d46df65de?auto=format&fit=crop&w=1920&q=80",
-    alt: "Nike Air Max sneakers close up studio",
+    src: "/slide2.jpg",
+    alt: "Air Jordan 1 Landscape",
   },
 ];
 
