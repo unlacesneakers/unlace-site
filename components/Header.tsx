@@ -65,18 +65,18 @@ export default function Header() {
     <header className="sticky top-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur supports-[backdrop-filter]:bg-black/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
-        {/* ✅ Brand logo */}
+        {/* ✅ Brand logo (white on black, fits h-16 header) */}
         <Link href="/" className="flex items-center gap-2" aria-label="UNLACE home">
           <Image
-            src="/logo-unlace-cropped.png"
+            src="/logo-unlace-header.png"   // put this file in /public
             alt="UNLACE"
-            width={160}
-            height={40}
+            width={200}                     // safe default; CSS controls final size
+            height={64}                     // matches h-16 header height
             priority
-            className="h-8 w-auto object-contain"
-            srcSet="/logo-unlace-cropped@2x.png 2x"
+            className="h-12 w-auto object-contain"  // ~48px tall inside the 64px header (nice breathing room)
           />
         </Link>
+
 
         {/* Nav */}
         <nav className="hidden md:flex items-center gap-6 text-sm">
