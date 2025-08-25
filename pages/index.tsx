@@ -3,6 +3,7 @@
 
 import React from "react";
 import Head from "next/head";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 // Centralized contact details (edit here once)
@@ -12,9 +13,6 @@ const CONTACT = {
   instagram: "https://www.instagram.com/unlacesneakers/#",
   siteUrl: "https://unlace.com.au",
 };
-
-// getform endpoint constant
-const GETFORM_ENDPOINT = "https://getform.io/f/ayveknob";
 
 // Components
 import Header from "../components/Header";
@@ -115,43 +113,6 @@ function Card({
 }
 
 export default function Home() {
-  // Booking form submit handler
-    const handlePickupSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const submitBtn = form.querySelector("button[type='submit']") as HTMLButtonElement | null;
-    
-    // For debugging — you should see this when you click submit
-    console.log("[UNLACE] Submitting pickup form…");
-      
-    // Build form data
-    const data = new FormData(form);
-  
-    try {
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Submitting…";
-      }
-  
-      await fetch(GETFORM_ENDPOINT, {
-        method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
-      });
-  
-      // Client-side redirect to your page
-      window.location.href = "/thank-you";
-    } catch (err) {
-      // Optional: show a simple error message
-      alert("Sorry, something went wrong. Please try again.");
-    } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Request Pick-Up";
-      }
-    }
-  };
-
   return (
     <>
       <Head>
@@ -209,19 +170,32 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
             >
+              {/* ✅ Brand logo in hero (centered, retina) */}
+              <div className="mb-6 flex justify-center">
+                <Image
+                  src="/logo-unlace-cropped.png"
+                  alt="UNLACE"
+                  width={280}
+                  height={70}
+                  className="h-14 w-auto"
+                  srcSet="/logo-unlace-cropped@2x.png 2x"
+                  priority={false}
+                />
+              </div>
+
               {/* Strapline — 'Sneaker Atelier' */}
-              <p className="uppercase tracking-[0.35em] text-zinc-400 text-xs mb-3">
+              <p className="uppercase tracking-[0.35em] text-zinc-400 text-xs mb-3 text-center">
                 Australia’s Premium Sneaker Atelier
               </p>
 
-              <h1 className="text-4xl sm:text-6xl font-extrabold">
+              <h1 className="text-4xl sm:text-6xl font-extrabold text-center">
                 UNLACE your sneakers — relace your style.
               </h1>
-              <p className="mt-4 text-zinc-300 max-w-2xl">
+              <p className="mt-4 text-zinc-300 max-w-2xl mx-auto text-center">
                 From daily beaters to grail-level pairs, UNLACE restores sneakers with precision
                 techniques and eco-safe care. Door-to-door pick-up & return across Melbourne.
               </p>
-              <div className="mt-8 flex gap-4">
+              <div className="mt-8 flex gap-4 justify-center">
                 <a
                   href="#pickup"
                   className="rounded-2xl bg-white text-black px-6 py-3 font-semibold hover:-translate-y-0.5 transition-transform"
@@ -235,7 +209,7 @@ export default function Home() {
                   Explore Services
                 </a>
               </div>
-              <div className="mt-8 flex flex-wrap items-center gap-6 text-zinc-400 text-sm">
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-zinc-400 text-sm">
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="h-4 w-4" /> Eco-safe products
                 </div>
@@ -341,7 +315,7 @@ export default function Home() {
         <FAQ items={faqs} />
         <SchemaFAQ items={faqsForSchema} />
 
-        {/* ========== PICKUP BOOKING (Formspree) ========== */}
+        {/* ========== PICKUP BOOKING (API) ========== */}
         <section id="pickup" className="bg-zinc-950 border-t border-white/10 scroll-mt-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
             <h2 className="text-2xl sm:text-4xl font-bold mb-6">Request a Pick-Up</h2>
@@ -352,7 +326,7 @@ export default function Home() {
               className="grid grid-cols-1 sm:grid-cols-2 gap-4"
               aria-label="Pickup booking form"
             >
-              {/* Formspree helper fields */}
+              {/* Hidden helpers */}
               <input type="hidden" id="subjectField" name="_subject" value="New UNLACE Pickup Request" />
               <input type="text" name="honeypot" className="hidden" aria-hidden="true" />
 
@@ -431,7 +405,6 @@ export default function Home() {
                 <option value="Premium Detail">Premium Detail</option>
                 <option value="Icy Sole Revival">Icy Sole Revival</option>
               </select>
-
 
               {/* Extras (right) */}
               <fieldset className="bg-black border border-white/10 rounded-xl px-4 py-3">
