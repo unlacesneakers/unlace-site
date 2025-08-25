@@ -6,7 +6,6 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Use your verified sender once set in Vercel env:
 // PICKUP_FROM_EMAIL = "UNLACE <no-reply@unlace.com.au>"
-// Fallback keeps things working if that env var is missing.
 const FROM = process.env.PICKUP_FROM_EMAIL || "UNLACE <onboarding@resend.dev>";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -50,7 +49,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!process.env.PICKUP_TO_EMAIL) throw new Error("Missing PICKUP_TO_EMAIL");
 
     // ---------- Admin (plain text, neatly aligned) ----------
-    const rows: Array<[string, string]> = [
+    const adminRows: Array<[string, string]> = [
       ["Name", name || "-"],
       ["Email", email || "-"],
       ["Phone", phone || "-"],
@@ -66,7 +65,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const adminText =
       "UNLACE — New Pickup Request\n" +
       "--------------------------------\n" +
-      rows.map(([k, v]) => `${k.padEnd(12)}: ${v}`).join("\n") +
+      adminRows.map(([k, v]) => `${k.padEnd(12)}: ${v}`).join("\n") +
       "\n--------------------------------\n" +
       `Submitted: ${new Date().toISOString()}`;
 
@@ -88,6 +87,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         ` - Date: ${date || "-"}\n` +
         ` - Time Window: ${time_window || "-"}\n\n` +
         `We’ll confirm your pickup window shortly.\n\n— UNLACE`;
+
+      // PRECOMPUTE strings used in the HTML to avoid nested template literals
+      const pickupAddress = `${address || "-"}, ${suburb || "-"} ${postcode || "-"}`.replace(/^, /, "");
 
       const customerHtml = `
         <div style="font-family:Arial,sans-serif;background:#f9f9f9;padding:20px;">
@@ -112,7 +114,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 <p style="margin:0 0 8px;font-weight:600;color:#000;">Summary</p>
                 <table style="width:100%;border-collapse:collapse;font-size:14px;">
                   ${tableRow("Service Tier", service_tier || "-")}
-                  ${tableRow("Pickup Address", \`${address || "-"}, ${suburb || "-"} ${postcode || "-"}\`.replace(/^, /, ""))}
+                  ${tableRow("Pickup Address", pickupAddress)}
                   ${tableRow("Date", date || "-")}
                   ${tableRow("Time Window", time_window || "-")}
                   ${extras.length ? tableRow("Extras", extras.join(", ")) : ""}
@@ -156,7 +158,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.writeHead(303, { Location: "/thank-you" });
     return res.end();
   } catch (err: any) {
-    // On error, still send user to Thank You to avoid a broken UX
     console.error("[pickup] error:", err?.message || err);
     res.writeHead(303, { Location: "/thank-you" });
     return res.end();
