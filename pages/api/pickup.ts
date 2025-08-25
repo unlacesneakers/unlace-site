@@ -61,13 +61,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       ["Model", model || "-"],
       ["Notes", (notes || "-").toString()],
     ];
-
+    
+    // Format the submitted time in Australia/Melbourne, 12-hour, with timezone
+    const submittedAtLocal = new Date().toLocaleString("en-AU", {
+      timeZone: "Australia/Melbourne",
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+      timeZoneName: "short", // shows AEST / AEDT
+    });
+    
     const adminText =
       "UNLACE — New Pickup Request\n" +
       "--------------------------------\n" +
       adminRows.map(([k, v]) => `${k.padEnd(12)}: ${v}`).join("\n") +
       "\n--------------------------------\n" +
-      `Submitted: ${new Date().toISOString()}`;
+      `Submitted: ${submittedAtLocal}`;
 
     await resend.emails.send({
       from: FROM,
