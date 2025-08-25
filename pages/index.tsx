@@ -301,13 +301,13 @@ export default function Home() {
               icon={<Droplets className="h-6 w-6" />}
               title="Premium Detail"
               desc="Full inside-out deep clean: uppers, midsoles, insoles & laces. Material-safe for leather, mesh, suede & nubuck — finished with deodorising."
-              price="$69"
+              price="$55"
             />
             <Card
               icon={<Stars className="h-6 w-6" />}
               title="Icy Sole Revival"
               desc="Reverse yellowing and oxidation with targeted whitening & stain treatment. Bring back that fresh-out-the-box glow."
-              price="From $129"
+              price="From $85"
             />
           </div>
 
