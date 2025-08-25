@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Image from "next/image"; // ✅ add this
 
 export default function Header() {
   const router = useRouter();
@@ -63,9 +64,21 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur supports-[backdrop-filter]:bg-black/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <Link href="/" className="text-xl font-extrabold tracking-wide hover:text-zinc-300">
-          UNLACE
+        
+        {/* ✅ Brand logo */}
+        <Link href="/" className="flex items-center gap-2" aria-label="UNLACE home">
+          <Image
+            src="/logo-unlace-cropped.png"
+            alt="UNLACE"
+            width={160}
+            height={40}
+            priority
+            className="h-8 w-auto object-contain"
+            srcSet="/logo-unlace-cropped@2x.png 2x"
+          />
         </Link>
+
+        {/* Nav */}
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <Link href="/" className={itemClass(pathIs("/") && active === "home")}>Home</Link>
           <a href="/#services" className={itemClass(pathIs("/") && active === "services")}>Services</a>
