@@ -21,6 +21,8 @@ import WhyChooseUs, { Benefit } from "../components/WhyChooseUs";
 import ProcessSteps, { Step } from "../components/ProcessSteps";
 import FAQ, { QA } from "../components/FAQ";
 import SchemaFAQ from "../components/SchemaFAQ";
+import Reveal from "../components/Reveal";
+import FloatingCta from "../components/FloatingCta";
 
 // Define the benefits (the content list)
 const benefits: Benefit[] = [
@@ -96,18 +98,20 @@ function Card({
   price?: string;
 }) {
   return (
-    <div className="relative rounded-2xl border border-white/10 p-6 bg-black hover:border-white/30 transition-colors">
-      {price && (
-        <span className="absolute top-4 right-4 text-[11px] uppercase tracking-wide rounded-full bg-white text-black px-2 py-1">
-          {price}
-        </span>
-      )}
-      <div className="h-6 w-6 mb-4" aria-hidden>
-        {icon}
+    <Reveal>
+      <div className="relative rounded-2xl border border-white/10 p-6 bg-black hover:border-white/30 transition-colors">
+        {price && (
+          <span className="absolute top-4 right-4 text-[11px] uppercase tracking-wide rounded-full bg-white text-black px-2 py-1">
+            {price}
+          </span>
+        )}
+        <div className="h-6 w-6 mb-4" aria-hidden>
+          {icon}
+        </div>
+        <h3 className="text-lg font-semibold">{title}</h3>
+        <p className="mt-2 text-zinc-300 text-sm">{desc}</p>
       </div>
-      <h3 className="text-lg font-semibold">{title}</h3>
-      <p className="mt-2 text-zinc-300 text-sm">{desc}</p>
-    </div>
+    </Reveal>
   );
 }
 
@@ -157,8 +161,9 @@ export default function Home() {
         />
       </Head>
 
-      {/* -------- Header -------- */}
+      {/* -------- Header + mobile sticky CTA -------- */}
       <Header />
+      <FloatingCta />
 
       <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
         {/* ========== HERO ========== */}
@@ -169,43 +174,55 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
             >
-              {/* Strapline */}
-              <p className="uppercase tracking-[0.35em] text-zinc-400 text-xs mb-3 text-center">
-                Australia’s Premium Sneaker Atelier
-              </p>
+              <Reveal>
+                <p className="uppercase tracking-[0.35em] text-zinc-400 text-xs mb-3 text-center">
+                  Australia’s Premium Sneaker Atelier
+                </p>
+              </Reveal>
 
-              <h1 className="text-4xl sm:text-6xl font-extrabold text-center">
-                UNLACE your sneakers — relace your style.
-              </h1>
-              <p className="mt-4 text-zinc-300 max-w-2xl mx-auto text-center">
-                From daily beaters to grail-level pairs, UNLACE restores sneakers with precision
-                techniques and eco-safe care. Door-to-door pick-up & return across Melbourne.
-              </p>
-              <div className="mt-8 flex gap-4 justify-center">
-                <a
-                  href="#pickup"
-                  className="rounded-2xl bg-white text-black px-6 py-3 font-semibold hover:-translate-y-0.5 transition-transform"
-                >
-                  Book a Pickup
-                </a>
-                <a
-                  href="#services"
-                  className="rounded-2xl border border-white/20 px-6 py-3 font-semibold hover:bg-white hover:text-black transition-colors"
-                >
-                  Explore Services
-                </a>
-              </div>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-zinc-400 text-sm">
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="h-4 w-4" /> Eco-safe products
+              <Reveal delay={0.05}>
+                <h1 className="text-4xl sm:text-6xl font-extrabold text-center">
+                  UNLACE your sneakers — relace your style.
+                </h1>
+              </Reveal>
+
+              <Reveal delay={0.1}>
+                <p className="mt-4 text-zinc-300 max-w-2xl mx-auto text-center">
+                  From daily beaters to grail-level pairs, UNLACE restores sneakers with precision
+                  techniques and eco-safe care. Door-to-door pick-up & return across Melbourne.
+                </p>
+              </Reveal>
+
+              <Reveal delay={0.15}>
+                <div className="mt-8 flex gap-4 justify-center">
+                  <a
+                    href="#pickup"
+                    className="rounded-2xl bg-white text-black px-6 py-3 font-semibold hover:-translate-y-0.5 transition-transform"
+                  >
+                    Book a Pickup
+                  </a>
+                  <a
+                    href="#services"
+                    className="rounded-2xl border border-white/20 px-6 py-3 font-semibold hover:bg-white hover:text-black transition-colors"
+                  >
+                    Explore Services
+                  </a>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Truck className="h-4 w-4" /> Pick-up & delivery
+              </Reveal>
+
+              <Reveal delay={0.2}>
+                <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-zinc-400 text-sm">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="h-4 w-4" /> Eco-safe products
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Truck className="h-4 w-4" /> Pick-up & delivery
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-4 w-4" /> 3 to 4 days*
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="h-4 w-4" /> 3 to 4 days*
-                </div>
-              </div>
+              </Reveal>
             </motion.div>
           </div>
         </section>
@@ -221,34 +238,32 @@ export default function Home() {
           id="about"
           className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 border-b border-white/10"
         >
-          <h2 className="text-2xl sm:text-4xl font-bold mb-4">About Us</h2>
-          <p className="text-zinc-300 mb-4">
-            At UNLACE, we believe sneakers are more than just footwear — they’re culture, memory, and investment.
-            Founded in Melbourne, our mission is simple: to give every pair the same meticulous care we give our own.
-          </p>
-          <p className="text-zinc-300 mb-4">
-            Our team is made up of sneakerheads who understand the nuances of premium materials. From delicate suede
-            to aged rubber, every clean is tailored with eco-safe solutions and specialist techniques.
-          </p>
-          <p className="text-zinc-300">
-            Whether it’s reviving beaters, preserving grails, or refreshing your daily rotation, UNLACE offers
-            convenient Melbourne-wide pick-up and return. Every sneaker is treated with precision, passion, and
-            respect — so they look and feel as good as the day you copped them.
-          </p>
+          <Reveal>
+            <h2 className="text-2xl sm:text-4xl font-bold mb-4">About Us</h2>
+          </Reveal>
+          <div className="space-y-4">
+            <Reveal><p className="text-zinc-300">At UNLACE, we believe sneakers are more than just footwear — they’re culture, memory, and investment. Founded in Melbourne, our mission is simple: to give every pair the same meticulous care we give our own.</p></Reveal>
+            <Reveal delay={0.05}><p className="text-zinc-300">Our team is made up of sneakerheads who understand the nuances of premium materials. From delicate suede to aged rubber, every clean is tailored with eco-safe solutions and specialist techniques.</p></Reveal>
+            <Reveal delay={0.1}><p className="text-zinc-300">Whether it’s reviving beaters, preserving grails, or refreshing your daily rotation, UNLACE offers convenient Melbourne-wide pick-up and return. Every sneaker is treated with precision, passion, and respect — so they look and feel as good as the day you copped them.</p></Reveal>
+          </div>
         </section>
 
-        {/* Why Choose Us */}
-        <WhyChooseUs items={benefits} />
+        {/* ✅ Why Choose Us */}
+        <Reveal>
+          <WhyChooseUs items={benefits} />
+        </Reveal>
 
         {/* ========== SERVICES ========== */}
         <section
           id="services"
           className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 scroll-mt-24"
         >
-          <div className="mb-8 sm:mb-10 flex items-end justify-between">
-            <h2 className="text-2xl sm:text-4xl font-bold">Services</h2>
-            <p className="text-sm text-zinc-400">Meticulous care, premium results.</p>
-          </div>
+          <Reveal>
+            <div className="mb-8 sm:mb-10 flex items-end justify-between">
+              <h2 className="text-2xl sm:text-4xl font-bold">Services</h2>
+              <p className="text-sm text-zinc-400">Meticulous care, premium results.</p>
+            </div>
+          </Reveal>
 
           <div className="grid md:grid-cols-3 gap-6">
             <Card
@@ -270,41 +285,23 @@ export default function Home() {
               price="From $85"
             />
           </div>
-
-          {/* Extras */}
-          <div className="mt-10">
-            <h3 className="text-lg font-semibold">Extras</h3>
-            <p className="text-sm text-zinc-400 mt-1">
-              Custom add-ons to elevate your clean.
-            </p>
-            <div className="grid md:grid-cols-2 gap-6 mt-4">
-              <Card
-                icon={<BadgeCheck className="h-6 w-6" />}
-                title="Protection Coating"
-                desc="Hydrophobic layer that repels water & stains — keep your sneakers fresher for longer."
-                price="$20"
-              />
-              <Card
-                icon={<BadgeCheck className="h-6 w-6" />}
-                title="Lace Swap"
-                desc="Swap in fresh stock laces or customise with a premium replacement — fitted to your pair."
-                price="$10–$15"
-              />
-            </div>
-          </div>
         </section>
 
         {/* Process Steps */}
-        <ProcessSteps items={steps} />
+        <Reveal>
+          <ProcessSteps items={steps} />
+        </Reveal>
 
         {/* FAQ */}
-        <FAQ items={faqs} />
+        <Reveal>
+          <FAQ items={faqs} />
+        </Reveal>
         <SchemaFAQ items={faqsForSchema} />
 
         {/* Pickup Form */}
         <section id="pickup" className="bg-zinc-950 border-t border-white/10 scroll-mt-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-            <h2 className="text-2xl sm:text-4xl font-bold mb-6">Request a Pick-Up</h2>
+            <Reveal><h2 className="text-2xl sm:text-4xl font-bold mb-6">Request a Pick-Up</h2></Reveal>
 
             <form
               action="/api/pickup"
