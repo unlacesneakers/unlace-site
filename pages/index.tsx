@@ -238,9 +238,7 @@ export default function Home() {
           id="about"
           className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 border-b border-white/10"
         >
-          <Reveal>
-            <h2 className="text-2xl sm:text-4xl font-bold mb-4">About Us</h2>
-          </Reveal>
+          <Reveal><h2 className="text-2xl sm:text-4xl font-bold mb-4">About Us</h2></Reveal>
           <div className="space-y-4">
             <Reveal><p className="text-zinc-300">At UNLACE, we believe sneakers are more than just footwear — they’re culture, memory, and investment. Founded in Melbourne, our mission is simple: to give every pair the same meticulous care we give our own.</p></Reveal>
             <Reveal delay={0.05}><p className="text-zinc-300">Our team is made up of sneakerheads who understand the nuances of premium materials. From delicate suede to aged rubber, every clean is tailored with eco-safe solutions and specialist techniques.</p></Reveal>
