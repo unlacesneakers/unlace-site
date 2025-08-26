@@ -70,7 +70,7 @@ export default function Header() {
           <Image
             src="/logo-unlace-white.png"   // put this file in /public
             alt="UNLACE"
-            width={200}                     // safe default; CSS controls final size
+            width={220}                     // safe default; CSS controls final size
             height={64}                     // matches h-16 header height
             priority
             className="h-16 w-auto object-contain"  // ~48px tall inside the 64px header (nice breathing room)
