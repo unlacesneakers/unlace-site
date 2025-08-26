@@ -173,7 +173,7 @@ export default function Home() {
               {/* ✅ Brand logo in hero (centered, retina) */}
               <div className="mb-6 flex justify-center">
                 <Image
-                  src="/logo-unlace-hero.png"
+                  src="/logo-unlace-white.png"
                   alt="UNLACE"
                   width={280}
                   height={70}
