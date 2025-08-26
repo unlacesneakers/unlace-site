@@ -3,7 +3,6 @@
 
 import React from "react";
 import Head from "next/head";
-import Image from "next/image";
 import { motion } from "framer-motion";
 
 // Centralized contact details (edit here once)
@@ -23,60 +22,7 @@ import ProcessSteps, { Step } from "../components/ProcessSteps";
 import FAQ, { QA } from "../components/FAQ";
 import SchemaFAQ from "../components/SchemaFAQ";
 
-// ---------- Inline brand wordmark (shoe icon + UNLACE) ----------
-
-function UnlaceShoeIcon({
-  height = 56,
-  className = "text-white",
-  title = "UNLACE shoe",
-}: {
-  height?: number;
-  className?: string;
-  title?: string;
-}) {
-  return (
-    <svg
-      viewBox="0 0 200 110"
-      height={height}
-      aria-label={title}
-      role="img"
-      className={className}
-    >
-      {/* Minimalist, hand-traced shoe outline. Uses currentColor. */}
-      <g fill="none" stroke="currentColor" strokeWidth={8} strokeLinecap="round" strokeLinejoin="round">
-        {/* Sole */}
-        <path d="M10 88 C40 90, 78 86, 110 74 C128 67, 140 59, 154 51 C160 48, 166 50, 172 54 C181 60, 188 64, 192 64 C195 64, 196 70, 189 75 C181 81, 171 88, 160 88 L10 88 Z" />
-        {/* Upper sweep */}
-        <path d="M26 69 C40 58, 52 54, 68 55 C77 56, 88 60, 100 68" />
-        {/* Lace throat */}
-        <path d="M70 55 C72 59, 78 63, 84 66" />
-        {/* Heel to toe upper */}
-        <path d="M26 69 C30 53, 36 40, 40 36 C45 31, 50 31, 56 34 C64 38, 72 44, 84 48 C100 53, 114 50, 128 44" />
-        {/* Signature lace loop rising above heel */}
-        <path d="M50 28 C50 18, 58 12, 66 14 C72 16, 74 22, 72 30 C70 38, 74 44, 78 50" />
-      </g>
-    </svg>
-  );
-}
-
-function UnlaceWordmark({ size = 56, className = "" }: { size?: number; className?: string }) {
-  const textPx = Math.round(size * 0.9); // scale text proportionally to icon height
-  return (
-    <div className={`flex items-center justify-center gap-3 ${className}`} style={{ lineHeight: 0 }}>
-      <UnlaceShoeIcon height={size} className="text-white" />
-      <span
-        className="font-extrabold tracking-tight text-white"
-        style={{ fontSize: `${textPx}px` }}
-        aria-label="UNLACE"
-      >
-        UNLACE
-      </span>
-    </div>
-  );
-}
-
-// ---------- Content data ----------
-
+// Define the benefits (the content list)
 const benefits: Benefit[] = [
   { id: "b1", title: "Professional deep clean", desc: "From midsoles to laces — premium tools and solutions for every material." },
   { id: "b2", title: "Icy sole revival & whitening", desc: "Targeted treatments to revive oxidised rubber and aged soles." },
@@ -86,6 +32,7 @@ const benefits: Benefit[] = [
   { id: "b6", title: "Local & responsive", desc: "Fast turnaround with friendly updates via SMS/Instagram." },
 ];
 
+// Define the Steps
 const steps: Step[] = [
   { id: "s1", title: "Request a pick-up", desc: "Use the booking form. We’ll confirm a time via SMS." },
   { id: "s2", title: "Assessment & quote", desc: "We inspect your pair and confirm any extras before starting." },
@@ -93,6 +40,7 @@ const steps: Step[] = [
   { id: "s4", title: "Return like-new", desc: "Delivered back to you across Melbourne—ready to wear." },
 ];
 
+// Refined FAQ (premium tone)
 const faqs: QA[] = [
   {
     q: "How do pick-ups work?",
@@ -182,7 +130,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
         <style>{`html{scroll-behavior:smooth}`}</style>
 
-        {/* LocalBusiness schema with centralized contact */}
+        {/* LocalBusiness schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -221,10 +169,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
             >
-              {/* ✅ Code-based brand (shoe icon + UNLACE) — crisp, scalable */}
-              <UnlaceWordmark size={64} className="mb-6" />
-
-              {/* Strapline — 'Sneaker Atelier' */}
+              {/* Strapline */}
               <p className="uppercase tracking-[0.35em] text-zinc-400 text-xs mb-3 text-center">
                 Australia’s Premium Sneaker Atelier
               </p>
@@ -265,7 +210,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ✅ Guarantee bar right after Hero */}
+        {/* ✅ Guarantee bar */}
         <GuaranteeStrip />
 
         {/* TopBanner carousel */}
@@ -292,7 +237,7 @@ export default function Home() {
           </p>
         </section>
 
-        {/* ✅ Why Choose Us */}
+        {/* Why Choose Us */}
         <WhyChooseUs items={benefits} />
 
         {/* ========== SERVICES ========== */}
@@ -356,7 +301,7 @@ export default function Home() {
         <FAQ items={faqs} />
         <SchemaFAQ items={faqsForSchema} />
 
-        {/* ========== PICKUP BOOKING (API) ========== */}
+        {/* Pickup Form */}
         <section id="pickup" className="bg-zinc-950 border-t border-white/10 scroll-mt-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
             <h2 className="text-2xl sm:text-4xl font-bold mb-6">Request a Pick-Up</h2>
@@ -367,61 +312,20 @@ export default function Home() {
               className="grid grid-cols-1 sm:grid-cols-2 gap-4"
               aria-label="Pickup booking form"
             >
-              {/* Hidden helpers */}
               <input type="hidden" id="subjectField" name="_subject" value="New UNLACE Pickup Request" />
               <input type="text" name="honeypot" className="hidden" aria-hidden="true" />
 
-              {/* Contact & address */}
-              <input
-                name="name"
-                placeholder="Full name"
-                required
-                className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30"
-              />
-              <input
-                name="email"
-                type="email"
-                placeholder="Email"
-                required
-                className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30"
-              />
-              <input
-                name="phone"
-                placeholder="Phone"
-                required
-                className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30 sm:col-span-2"
-              />
-              <input
-                name="address"
-                placeholder="Pickup address"
-                required
-                className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30 sm:col-span-2"
-              />
-              <input
-                name="suburb"
-                placeholder="Suburb"
-                required
-                className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30"
-              />
-              <input
-                name="postcode"
-                placeholder="Postcode"
-                required
-                className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30"
-              />
+              {/* Contact */}
+              <input name="name" placeholder="Full name" required className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30" />
+              <input name="email" type="email" placeholder="Email" required className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30" />
+              <input name="phone" placeholder="Phone" required className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30 sm:col-span-2" />
+              <input name="address" placeholder="Pickup address" required className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30 sm:col-span-2" />
+              <input name="suburb" placeholder="Suburb" required className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30" />
+              <input name="postcode" placeholder="Postcode" required className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30" />
 
-              {/* Date & time window */}
-              <input
-                name="date"
-                type="date"
-                required
-                className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30"
-              />
-              <select
-                name="time_window"
-                required
-                className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30"
-              >
+              {/* Date & time */}
+              <input name="date" type="date" required className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30" />
+              <select name="time_window" required className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30">
                 <option value="">Preferred time window</option>
                 <option>9:00 – 12:00</option>
                 <option>12:00 – 3:00</option>
@@ -429,7 +333,7 @@ export default function Home() {
                 <option>After hours (request)</option>
               </select>
 
-              {/* Service tier (left) */}
+              {/* Service tier */}
               <select
                 name="service_tier"
                 required
@@ -447,7 +351,7 @@ export default function Home() {
                 <option value="Icy Sole Revival">Icy Sole Revival</option>
               </select>
 
-              {/* Extras (right) */}
+              {/* Extras */}
               <fieldset className="bg-black border border-white/10 rounded-xl px-4 py-3">
                 <legend className="text-sm text-zinc-400">Extras (optional)</legend>
                 <div className="mt-2 space-y-2">
@@ -463,24 +367,14 @@ export default function Home() {
               </fieldset>
 
               {/* Sneaker model & notes */}
-              <input
-                name="model"
-                placeholder="Sneaker model(s) (e.g., AJ1, Yeezy 350)"
-                className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30 sm:col-span-2"
-              />
-              <textarea
-                name="notes"
-                rows={4}
-                className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30 sm:col-span-2"
-                placeholder="Notes (stains, yellowing, suede, etc.)"
-              ></textarea>
+              <input name="model" placeholder="Sneaker model(s) (e.g., AJ1, Yeezy 350)" className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30 sm:col-span-2" />
+              <textarea name="notes" rows={4} className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30 sm:col-span-2" placeholder="Notes (stains, yellowing, suede, etc.)"></textarea>
 
               {/* Consent */}
               <label className="sm:col-span-2 text-sm text-zinc-300 flex items-start gap-3">
                 <input required type="checkbox" className="mt-1" />
                 <span>
-                  I agree to the <a href="/terms" className="underline">Terms of Service</a> and
-                  understand final pricing may change after inspection.
+                  I agree to the <a href="/terms" className="underline">Terms of Service</a> and understand final pricing may change after inspection.
                 </span>
               </label>
 
@@ -499,40 +393,25 @@ export default function Home() {
         {/* ========== FOOTER ========== */}
         <footer id="contact" className="border-t border-white/10">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-zinc-400">
-            {/* Brand tagline */}
             <div className="text-center md:text-left">
               <p className="font-semibold text-white">UNLACE — Melbourne’s Sneaker Atelier</p>
               <p className="mt-1 text-zinc-400">
                 Trusted care for your kicks, from pick-up to return.
               </p>
             </div>
-
-            {/* Contact + links */}
             <div className="flex flex-col items-center md:items-end gap-2 md:gap-3">
-              <a
-                href={`mailto:${CONTACT.email}`}
-                className="hover:text-white flex items-center gap-1"
-              >
+              <a href={`mailto:${CONTACT.email}`} className="hover:text-white flex items-center gap-1">
                 <Mail className="h-4 w-4" /> {CONTACT.email}
               </a>
-              <a
-                href={CONTACT.instagram}
-                className="hover:text-white"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href={CONTACT.instagram} className="hover:text-white" target="_blank" rel="noreferrer">
                 Instagram
               </a>
-
               <div className="flex gap-3 text-xs mt-2">
                 <a href="/privacy" className="hover:text-white">Privacy</a>
                 <span className="opacity-40">•</span>
                 <a href="/terms" className="hover:text-white">Terms</a>
               </div>
-
-              <p className="text-xs text-zinc-500 mt-2">
-                © {new Date().getFullYear()} UNLACE — Melbourne, VIC
-              </p>
+              <p className="text-xs text-zinc-500 mt-2">© {new Date().getFullYear()} UNLACE — Melbourne, VIC</p>
             </div>
           </div>
         </footer>
