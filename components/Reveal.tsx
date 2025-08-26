@@ -1,22 +1,27 @@
 // components/Reveal.tsx
 "use client";
-import { motion } from "framer-motion";
 import React from "react";
+import { motion } from "framer-motion";
 
-type Props = {
+type RevealProps = {
   children: React.ReactNode;
   delay?: number;
-  className?: string;
+  duration?: number;
+  y?: number; // how far to slide up
 };
 
-export default function Reveal({ children, delay = 0, className }: Props) {
+export default function Reveal({
+  children,
+  delay = 0.1,
+  duration = 0.6,
+  y = 20,
+}: RevealProps) {
   return (
     <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut", delay }}
-      viewport={{ once: true, margin: "0px 0px -120px 0px" }}
+      transition={{ duration, delay, ease: "easeOut" }}
+      viewport={{ once: true, amount: 0.3 }} // triggers when 30% visible
     >
       {children}
     </motion.div>
