@@ -23,7 +23,60 @@ import ProcessSteps, { Step } from "../components/ProcessSteps";
 import FAQ, { QA } from "../components/FAQ";
 import SchemaFAQ from "../components/SchemaFAQ";
 
-// Define the benefits (the content list)
+// ---------- Inline brand wordmark (shoe icon + UNLACE) ----------
+
+function UnlaceShoeIcon({
+  height = 56,
+  className = "text-white",
+  title = "UNLACE shoe",
+}: {
+  height?: number;
+  className?: string;
+  title?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 200 110"
+      height={height}
+      aria-label={title}
+      role="img"
+      className={className}
+    >
+      {/* Minimalist, hand-traced shoe outline. Uses currentColor. */}
+      <g fill="none" stroke="currentColor" strokeWidth={8} strokeLinecap="round" strokeLinejoin="round">
+        {/* Sole */}
+        <path d="M10 88 C40 90, 78 86, 110 74 C128 67, 140 59, 154 51 C160 48, 166 50, 172 54 C181 60, 188 64, 192 64 C195 64, 196 70, 189 75 C181 81, 171 88, 160 88 L10 88 Z" />
+        {/* Upper sweep */}
+        <path d="M26 69 C40 58, 52 54, 68 55 C77 56, 88 60, 100 68" />
+        {/* Lace throat */}
+        <path d="M70 55 C72 59, 78 63, 84 66" />
+        {/* Heel to toe upper */}
+        <path d="M26 69 C30 53, 36 40, 40 36 C45 31, 50 31, 56 34 C64 38, 72 44, 84 48 C100 53, 114 50, 128 44" />
+        {/* Signature lace loop rising above heel */}
+        <path d="M50 28 C50 18, 58 12, 66 14 C72 16, 74 22, 72 30 C70 38, 74 44, 78 50" />
+      </g>
+    </svg>
+  );
+}
+
+function UnlaceWordmark({ size = 56, className = "" }: { size?: number; className?: string }) {
+  const textPx = Math.round(size * 0.9); // scale text proportionally to icon height
+  return (
+    <div className={`flex items-center justify-center gap-3 ${className}`} style={{ lineHeight: 0 }}>
+      <UnlaceShoeIcon height={size} className="text-white" />
+      <span
+        className="font-extrabold tracking-tight text-white"
+        style={{ fontSize: `${textPx}px` }}
+        aria-label="UNLACE"
+      >
+        UNLACE
+      </span>
+    </div>
+  );
+}
+
+// ---------- Content data ----------
+
 const benefits: Benefit[] = [
   { id: "b1", title: "Professional deep clean", desc: "From midsoles to laces — premium tools and solutions for every material." },
   { id: "b2", title: "Icy sole revival & whitening", desc: "Targeted treatments to revive oxidised rubber and aged soles." },
@@ -33,7 +86,6 @@ const benefits: Benefit[] = [
   { id: "b6", title: "Local & responsive", desc: "Fast turnaround with friendly updates via SMS/Instagram." },
 ];
 
-// Define the Steps
 const steps: Step[] = [
   { id: "s1", title: "Request a pick-up", desc: "Use the booking form. We’ll confirm a time via SMS." },
   { id: "s2", title: "Assessment & quote", desc: "We inspect your pair and confirm any extras before starting." },
@@ -41,7 +93,6 @@ const steps: Step[] = [
   { id: "s4", title: "Return like-new", desc: "Delivered back to you across Melbourne—ready to wear." },
 ];
 
-// Refined FAQ (premium tone)
 const faqs: QA[] = [
   {
     q: "How do pick-ups work?",
@@ -170,18 +221,8 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
             >
-              {/* ✅ Brand logo in hero (centered, retina) */}
-              <div className="mb-6 flex justify-center">
-                <Image
-                  src="/logo-unlace-white.png"
-                  alt="UNLACE"
-                  width={280}
-                  height={70}
-                  className="h-14 w-auto"
-                  srcSet="/logo-unlace-cropped@2x.png 2x"
-                  priority={false}
-                />
-              </div>
+              {/* ✅ Code-based brand (shoe icon + UNLACE) — crisp, scalable */}
+              <UnlaceWordmark size={64} className="mb-6" />
 
               {/* Strapline — 'Sneaker Atelier' */}
               <p className="uppercase tracking-[0.35em] text-zinc-400 text-xs mb-3 text-center">
