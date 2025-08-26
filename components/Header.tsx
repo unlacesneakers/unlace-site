@@ -73,7 +73,7 @@ export default function Header() {
             width={200}                     // safe default; CSS controls final size
             height={64}                     // matches h-16 header height
             priority
-            className="h-12 w-auto object-contain"  // ~48px tall inside the 64px header (nice breathing room)
+            className="h-16 w-auto object-contain"  // ~48px tall inside the 64px header (nice breathing room)
           />
         </Link>
 
