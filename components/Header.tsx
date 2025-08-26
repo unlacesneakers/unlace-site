@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Image from "next/image"; // ✅ add this
 
 export default function Header() {
   const router = useRouter();
@@ -64,21 +63,15 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur supports-[backdrop-filter]:bg-black/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        
-        {/* ✅ Brand logo (white on black, fits h-16 header) */}
-        <Link href="/" className="flex items-center gap-2" aria-label="UNLACE home">
-          <Image
-            src="/logo-unlace-white.png"   // put this file in /public
-            alt="UNLACE"
-            width={240}                     // safe default; CSS controls final size
-            height={72}                     // matches h-16 header height
-            priority
-            className="h-16 w-auto object-contain"  // ~48px tall inside the 64px header (nice breathing room)
-          />
+        {/* ✅ Brand text only */}
+        <Link
+          href="/"
+          className="text-xl font-extrabold tracking-wide hover:text-zinc-300"
+          aria-label="UNLACE home"
+        >
+          UNLACE
         </Link>
 
-
-        {/* Nav */}
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <Link href="/" className={itemClass(pathIs("/") && active === "home")}>Home</Link>
           <a href="/#services" className={itemClass(pathIs("/") && active === "services")}>Services</a>
