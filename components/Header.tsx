@@ -68,7 +68,7 @@ export default function Header() {
         {/* ✅ Brand logo (white on black, fits h-16 header) */}
         <Link href="/" className="flex items-center gap-2" aria-label="UNLACE home">
           <Image
-            src="/logo-unlace-header.png"   // put this file in /public
+            src="/logo-unlace-white.png"   // put this file in /public
             alt="UNLACE"
             width={200}                     // safe default; CSS controls final size
             height={64}                     // matches h-16 header height
