@@ -259,20 +259,24 @@ export default function Home() {
 
         {/* Before and After photos */}
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 border-t border-white/10">
-        <h2 className="text-2xl sm:text-4xl font-bold mb-8">Before & After</h2>
-      
-        <div className="grid md:grid-cols-2 gap-8">
-          <BeforeAfterStatic
-            src="/ba-placeholder-before.jpg"
-            alt="UNLACE cleaning result — pair 1"
-          />
-          <BeforeAfterStatic
-            src="/ba-placeholder-after.jpg"
-            alt="UNLACE cleaning result — pair 2"
-          />
-        </div>
+          <h2 className="text-2xl sm:text-4xl font-bold mb-8">Before & After</h2>
+        
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* First panel shows BEFORE */}
+            <BeforeAfterStatic
+              src="/ba-placeholder-before.jpg"
+              alt="UNLACE cleaning result — before"
+              label="Before"
+            />
+        
+            {/* Second panel shows AFTER */}
+            <BeforeAfterStatic
+              src="/ba-placeholder-after.jpg"
+              alt="UNLACE cleaning result — after"
+              label="After"
+            />
+          </div>
         </section>
-
 
         {/* ========== SERVICES ========== */}
         <section
