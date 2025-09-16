@@ -24,6 +24,7 @@ import SchemaFAQ from "../components/SchemaFAQ";
 import Reveal from "../components/Reveal";
 import FloatingCta from "../components/FloatingCta";
 import BeforeAfter from "../components/BeforeAfter";
+import BeforeAfterStatic from "../components/BeforeAfterStatic";
 
 // Define the benefits (the content list)
 const benefits: Benefit[] = [
@@ -281,6 +282,22 @@ export default function Home() {
         <Reveal>
           <WhyChooseUs items={benefits} />
         </Reveal>
+
+        {/* Before and After photos */}
+        <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 border-t border-white/10">
+        <h2 className="text-2xl sm:text-4xl font-bold mb-8">Before & After</h2>
+      
+        <div className="grid md:grid-cols-2 gap-8">
+          <BeforeAfterStatic
+            src="/results/pair-1.webp"  // put your image in /public/results/
+            alt="UNLACE cleaning result — pair 1"
+          />
+          <BeforeAfterStatic
+            src="/results/pair-2.webp"
+            alt="UNLACE cleaning result — pair 2"
+          />
+        </div>
+        </section>
 
         {/* ========== SERVICES ========== */}
         <section
