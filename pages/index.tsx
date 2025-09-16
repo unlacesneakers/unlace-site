@@ -23,7 +23,6 @@ import FAQ, { QA } from "../components/FAQ";
 import SchemaFAQ from "../components/SchemaFAQ";
 import Reveal from "../components/Reveal";
 import FloatingCta from "../components/FloatingCta";
-import BeforeAfter from "../components/BeforeAfter";
 import BeforeAfterStatic from "../components/BeforeAfterStatic";
 
 // Define the benefits (the content list)
@@ -234,18 +233,6 @@ export default function Home() {
 
         {/* TopBanner carousel */}
         <TopBanner />
-
-        {/* ========== BEFORE & AFTER (placeholder) ========== */}
-        <section
-          id="results"
-          className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 border-b border-white/10"
-        >
-          <Reveal>
-            <h2 className="text-2xl sm:text-4xl font-bold mb-2">Before & After</h2>
-            <p className="text-sm text-zinc-400 mb-8">
-              Real transformations from our atelier — photos coming soon.
-            </p>
-          </Reveal>
         
           <div className="grid gap-6 md:grid-cols-2">
             <Reveal>
@@ -289,15 +276,16 @@ export default function Home() {
       
         <div className="grid md:grid-cols-2 gap-8">
           <BeforeAfterStatic
-            src="/results/pair-1.webp"  // put your image in /public/results/
+            src="/ba-placeholder-before.jpg"
             alt="UNLACE cleaning result — pair 1"
           />
           <BeforeAfterStatic
-            src="/results/pair-2.webp"
+            src="/ba-placeholder-after.jpg"
             alt="UNLACE cleaning result — pair 2"
           />
         </div>
         </section>
+
 
         {/* ========== SERVICES ========== */}
         <section
