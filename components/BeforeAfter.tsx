@@ -3,9 +3,9 @@
 import React, { useRef, useState } from "react";
 
 type Props = {
-  before: string;  // /public path e.g. "/ba-aj1-before.jpg"
-  after: string;   // /public path e.g. "/ba-aj1-after.jpg"
-  alt: string;     // shared alt text
+  before: string;  // e.g. "/ba-placeholder-before.jpg"
+  after: string;   // e.g. "/ba-placeholder-after.jpg"
+  alt: string;
   className?: string;
 };
 
@@ -24,10 +24,11 @@ export default function BeforeAfter({ before, after, alt, className = "" }: Prop
   const onDown = (e: React.MouseEvent | React.TouchEvent) => {
     if ("touches" in e) setFromClientX(e.touches[0].clientX);
     else setFromClientX((e as React.MouseEvent).clientX);
-    (e.currentTarget as HTMLElement).ownerDocument.addEventListener("mousemove", onMove as any);
-    (e.currentTarget as HTMLElement).ownerDocument.addEventListener("touchmove", onMove as any, { passive: false });
-    (e.currentTarget as HTMLElement).ownerDocument.addEventListener("mouseup", onUp as any);
-    (e.currentTarget as HTMLElement).ownerDocument.addEventListener("touchend", onUp as any);
+    const doc = (e.currentTarget as HTMLElement).ownerDocument;
+    doc.addEventListener("mousemove", onMove as any);
+    doc.addEventListener("touchmove", onMove as any, { passive: false });
+    doc.addEventListener("mouseup", onUp as any);
+    doc.addEventListener("touchend", onUp as any);
   };
 
   const onMove = (e: MouseEvent | TouchEvent) => {
@@ -77,11 +78,7 @@ export default function BeforeAfter({ before, after, alt, className = "" }: Prop
       </div>
 
       {/* Divider / handle */}
-      <div
-        className="absolute top-0 bottom-0"
-        style={{ left: `calc(${x}% - 1px)` }}
-        aria-hidden
-      >
+      <div className="absolute top-0 bottom-0" style={{ left: `calc(${x}% - 1px)` }} aria-hidden>
         <div className="h-full w-0.5 bg-white/70" />
         <button
           aria-label="Drag to compare before and after"
