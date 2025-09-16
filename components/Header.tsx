@@ -78,6 +78,7 @@ export default function Header() {
           <Link href="/" className={itemClass(pathIs("/") && active === "home")}>Home</Link>
           <a href="/#services" className={itemClass(pathIs("/") && active === "services")}>Services</a>
           <a href="/#pickup" className={itemClass(pathIs("/") && active === "pickup")}>Book</a>
+          <a href="/#results" className={itemClass(pathIs("/") && active === null)}>Results</a>
           <Link href="/privacy" className={itemClass(pathIs("/privacy"))}>Privacy</Link>
           <Link href="/terms" className={itemClass(pathIs("/terms"))}>Terms</Link>
         </nav>
@@ -109,6 +110,7 @@ export default function Header() {
             <Link href="/" onClick={() => setOpen(false)} className="py-2 text-zinc-200 hover:text-white">Home</Link>
             <a href="/#services" onClick={() => setOpen(false)} className="py-2 text-zinc-200 hover:text-white">Services</a>
             <a href="/#pickup" onClick={() => setOpen(false)} className="py-2 text-zinc-200 hover:text-white">Book</a>
+            <a href="/#results" onClick={() => setOpen(false)} className="py-2 text-zinc-200 hover:text-white">Results</a>
             <Link href="/privacy" onClick={() => setOpen(false)} className="py-2 text-zinc-200 hover:text-white">Privacy</Link>
             <Link href="/terms" onClick={() => setOpen(false)} className="py-2 text-zinc-200 hover:text-white">Terms</Link>
           </nav>
