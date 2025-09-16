@@ -23,6 +23,7 @@ import FAQ, { QA } from "../components/FAQ";
 import SchemaFAQ from "../components/SchemaFAQ";
 import Reveal from "../components/Reveal";
 import FloatingCta from "../components/FloatingCta";
+import BeforeAfter from "../components/BeforeAfter";
 
 // Define the benefits (the content list)
 const benefits: Benefit[] = [
@@ -232,6 +233,37 @@ export default function Home() {
 
         {/* TopBanner carousel */}
         <TopBanner />
+
+        {/* ========== BEFORE & AFTER ========== */}
+        <section
+          id="results"
+          className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 border-b border-white/10"
+        >
+          <Reveal>
+            <h2 className="text-2xl sm:text-4xl font-bold mb-2">Before & After</h2>
+            <p className="text-sm text-zinc-400 mb-8">Real transformations from our atelier.</p>
+          </Reveal>
+        
+          <div className="grid gap-6 md:grid-cols-2">
+            <Reveal>
+              <BeforeAfter
+                before="/ba-aj1-before.jpg"
+                after="/ba-aj1-after.jpg"
+                alt="Air Jordan 1 — deep clean and whitening result"
+              />
+            </Reveal>
+        
+            <Reveal delay={0.05}>
+              <BeforeAfter
+                before="/ba-yeezy-before.jpg"
+                after="/ba-yeezy-after.jpg"
+                alt="Yeezy — de-yellowing and detailing result"
+              />
+            </Reveal>
+        
+            {/* Add more pairs by duplicating a block above */}
+          </div>
+        </section>
 
         {/* ========== ABOUT ========== */}
         <section
