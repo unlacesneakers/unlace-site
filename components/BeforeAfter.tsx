@@ -1,33 +1,102 @@
-// components/BeforeAfterStatic.tsx
-import Image from "next/image";
+// components/BeforeAfter.tsx
+"use client";
+import React, { useRef, useState } from "react";
 
-export default function BeforeAfterStatic({
-  src,
-  alt,
-}: {
-  src: string;
+type Props = {
+  before: string;  // e.g. "/ba-placeholder-before.jpg"
+  after: string;   // e.g. "/ba-placeholder-after.jpg"
   alt: string;
-}) {
+  className?: string;
+};
+
+export default function BeforeAfter({ before, after, alt, className = "" }: Props) {
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const [x, setX] = useState(50); // percentage
+
+  const setFromClientX = (clientX: number) => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const pct = ((clientX - rect.left) / rect.width) * 100;
+    setX(Math.max(0, Math.min(100, pct)));
+  };
+
+  const onDown = (e: React.MouseEvent | React.TouchEvent) => {
+    if ("touches" in e) setFromClientX(e.touches[0].clientX);
+    else setFromClientX((e as React.MouseEvent).clientX);
+    const doc = (e.currentTarget as HTMLElement).ownerDocument;
+    doc.addEventListener("mousemove", onMove as any);
+    doc.addEventListener("touchmove", onMove as any, { passive: false });
+    doc.addEventListener("mouseup", onUp as any);
+    doc.addEventListener("touchend", onUp as any);
+  };
+
+  const onMove = (e: MouseEvent | TouchEvent) => {
+    if (e instanceof TouchEvent) {
+      e.preventDefault();
+      setFromClientX(e.touches[0].clientX);
+    } else {
+      setFromClientX(e.clientX);
+    }
+  };
+
+  const onUp = (e: MouseEvent | TouchEvent) => {
+    const doc = (wrapRef.current as HTMLDivElement).ownerDocument;
+    doc.removeEventListener("mousemove", onMove as any);
+    doc.removeEventListener("touchmove", onMove as any);
+    doc.removeEventListener("mouseup", onUp as any);
+    doc.removeEventListener("touchend", onUp as any);
+  };
+
   return (
-    <div className="relative w-full max-w-xl mx-auto">
-      {/* Main image */}
-      <Image
-        src={src}
+    <div
+      ref={wrapRef}
+      className={`relative overflow-hidden rounded-2xl border border-white/10 bg-black ${className}`}
+    >
+      {/* After (full) */}
+      <img
+        src={after}
         alt={alt}
-        width={600}
-        height={400}
-        className="rounded-xl border border-white/10"
+        className="block w-full h-auto select-none pointer-events-none"
+        draggable={false}
+        loading="lazy"
       />
 
-      {/* Left label */}
-      <span className="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
-        Before
-      </span>
+      {/* Before (masked by width) */}
+      <div
+        className="absolute inset-0"
+        style={{ width: `${x}%`, overflow: "hidden", pointerEvents: "none" }}
+        aria-hidden
+      >
+        <img
+          src={before}
+          alt=""
+          className="block w-full h-auto select-none"
+          draggable={false}
+          loading="lazy"
+        />
+      </div>
 
-      {/* Right label */}
-      <span className="absolute top-2 right-2 bg-white/90 text-black text-xs px-2 py-1 rounded">
+      {/* Divider / handle */}
+      <div className="absolute top-0 bottom-0" style={{ left: `calc(${x}% - 1px)` }} aria-hidden>
+        <div className="h-full w-0.5 bg-white/70" />
+        <button
+          aria-label="Drag to compare before and after"
+          onMouseDown={onDown}
+          onTouchStart={onDown}
+          className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 rounded-full border border-white/30 bg-black/50 backdrop-blur text-white/90"
+        >
+          ||
+        </button>
+      </div>
+
+      {/* Labels */}
+      <div className="absolute left-3 top-3 text-xs px-2 py-1 rounded bg-black/60 border border-white/10">
+        Before
+      </div>
+      <div className="absolute right-3 top-3 text-xs px-2 py-1 rounded bg-black/60 border border-white/10">
         After
-      </span>
+      </div>
     </div>
   );
 }
