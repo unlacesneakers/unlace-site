@@ -24,6 +24,10 @@ import SchemaFAQ from "../components/SchemaFAQ";
 import Reveal from "../components/Reveal";
 import FloatingCta from "../components/FloatingCta";
 import BeforeAfterStatic from "../components/BeforeAfterStatic";
+import Testimonials, { Testimonial } from "../components/Testimonials";
+
+// For now we don't have reviews — leave this empty:
+const testimonials: Testimonial[] = [];
 
 // Define the benefits (the content list)
 const benefits: Benefit[] = [
