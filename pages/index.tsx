@@ -313,6 +313,8 @@ export default function Home() {
           <ProcessSteps items={steps} />
         </Reveal>
 
+        <Testimonials items={testimonials} instagramUrl={CONTACT.instagram} />
+
         {/* FAQ */}
         <Reveal>
           <FAQ items={faqs} />
