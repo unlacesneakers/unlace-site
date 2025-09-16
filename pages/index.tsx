@@ -233,24 +233,6 @@ export default function Home() {
 
         {/* TopBanner carousel */}
         <TopBanner />
-        
-          <div className="grid gap-6 md:grid-cols-2">
-            <Reveal>
-              <BeforeAfter
-                before="/ba-placeholder-before.jpg"
-                after="/ba-placeholder-after.jpg"
-                alt="Sneaker restoration comparison"
-              />
-            </Reveal>
-            <Reveal delay={0.05}>
-              <BeforeAfter
-                before="/ba-placeholder-before.jpg"
-                after="/ba-placeholder-after.jpg"
-                alt="Sneaker restoration comparison"
-              />
-            </Reveal>
-          </div>
-        </section>
 
         {/* ========== ABOUT ========== */}
         <section
