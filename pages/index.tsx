@@ -265,15 +265,16 @@ export default function Home() {
             {/* First panel shows BEFORE */}
             <BeforeAfterStatic
               src="/ba-placeholder-before.jpg"
-              alt="UNLACE cleaning result — before"
+              alt="UNLACE cleaning result — pair 1"
               label="Before"
             />
         
             {/* Second panel shows AFTER */}
             <BeforeAfterStatic
               src="/ba-placeholder-after.jpg"
-              alt="UNLACE cleaning result — after"
-              label="After"
+              alt="UNLACE cleaning result — pair 2"
+              leftLabel="After"
+              rightLabel="Before"
             />
           </div>
         </section>
