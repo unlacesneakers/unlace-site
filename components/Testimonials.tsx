@@ -19,13 +19,21 @@ export default function Testimonials({
   instagramUrl?: string;
 }) {
   const hasReviews = items && items.length > 0;
-  const REVIEW_LINK = "https://g.page/r/CdDLoz-4o6xIEAE/review"; // your real review link now
+  const REVIEW_LINK = "https://g.page/r/CdDLoz-4o6xIEAE/review";
 
   return (
     <section
       id="testimonials"
       className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 border-t border-white/10"
     >
+      {/* ✅ Google Review badge */}
+      <div className="mb-4 flex items-center gap-2 text-sm text-zinc-400">
+        <img src="/google-g-icon.png" alt="Google logo" className="h-5 w-5" />
+        <span>
+          Verified by <span className="text-white font-medium">Google Reviews</span>
+        </span>
+      </div>
+
       <div className="mb-8 sm:mb-10">
         <h2 className="text-2xl sm:text-4xl font-bold">What people say</h2>
         <p className="text-sm text-zinc-400 mt-2">
@@ -33,7 +41,7 @@ export default function Testimonials({
         </p>
       </div>
 
-      {/* If no reviews */}
+      {/* Empty / Coming soon */}
       {!hasReviews && (
         <div className="rounded-2xl border border-white/10 bg-zinc-950 p-6 sm:p-8">
           <div className="flex items-start gap-4">
@@ -98,7 +106,7 @@ export default function Testimonials({
         </div>
       )}
 
-      {/* Leave a review button */}
+      {/* ✅ Leave a review button */}
       <div className="mt-10 text-center">
         <a
           href={REVIEW_LINK}
