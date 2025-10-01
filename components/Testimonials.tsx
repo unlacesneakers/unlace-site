@@ -19,8 +19,11 @@ export default function Testimonials({
   instagramUrl?: string;
 }) {
   const hasReviews = items && items.length > 0;
-  const googlePlaceId = "ChIJD2Dy3VpY1moR0sBjQXqk5mQ"; // ✅ Your place ID
-  const googleReviewsUrl = `https://www.google.com/maps/place/?q=placeid=${googlePlaceId}`;
+
+  // ✅ Correct Google Place ID and URLs
+  const GOOGLE_PLACE_ID = "ChIJHekd6ofwaQYR0MujP7jjrEg";
+  const GOOGLE_MAPS_PLACE_URL = `https://www.google.com/maps/search/?api=1&query_place_id=${GOOGLE_PLACE_ID}`;
+  const GOOGLE_WRITE_REVIEW_URL = `https://search.google.com/local/writereview?placeid=${GOOGLE_PLACE_ID}`;
 
   return (
     <section
@@ -107,7 +110,7 @@ export default function Testimonials({
               {/* ✅ View on Google link */}
               <div className="mt-3">
                 <a
-                  href={googleReviewsUrl}
+                  href={GOOGLE_MAPS_PLACE_URL}
                   target="_blank"
                   rel="noreferrer"
                   className="text-xs text-blue-400 hover:underline"
@@ -123,7 +126,7 @@ export default function Testimonials({
       {/* ✅ Leave a Review button */}
       <div className="mt-10 text-center">
         <a
-          href={`${googleReviewsUrl}&review`}
+          href={GOOGLE_WRITE_REVIEW_URL}
           target="_blank"
           rel="noreferrer"
           className="rounded-2xl bg-white text-black px-6 py-3 font-semibold hover:-translate-y-0.5 transition-transform"
