@@ -6,8 +6,8 @@ import { Quote, Star } from "lucide-react";
 export type Testimonial = {
   id: string;
   quote: string;
-  author?: string;      // e.g., "J. Nguyen"
-  meta?: string;        // e.g., "Brunswick, VIC" or "@handle"
+  author?: string;
+  meta?: string;
   rating?: 1 | 2 | 3 | 4 | 5;
 };
 
@@ -19,16 +19,24 @@ export default function Testimonials({
   instagramUrl?: string;
 }) {
   const hasReviews = items && items.length > 0;
+  const googlePlaceId = "ChIJD2Dy3VpY1moR0sBjQXqk5mQ"; // ✅ Your place ID
+  const googleReviewsUrl = `https://www.google.com/maps/place/?q=placeid=${googlePlaceId}`;
 
   return (
     <section
       id="testimonials"
       className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 border-t border-white/10"
     >
+      {/* ✅ Google Reviews badge */}
+      <div className="mb-6 flex items-center gap-2 text-sm text-zinc-400">
+        <img src="/google-g-icon.png" alt="Google logo" className="h-4 w-4" />
+        <span>Verified Google Reviews</span>
+      </div>
+
       <div className="mb-8 sm:mb-10">
         <h2 className="text-2xl sm:text-4xl font-bold">What people say</h2>
         <p className="text-sm text-zinc-400 mt-2">
-          Trust signals from the community — we’ll surface customer reviews here.
+          Trust signals from the community — verified reviews displayed below.
         </p>
       </div>
 
@@ -95,10 +103,34 @@ export default function Testimonials({
                   {t.meta}
                 </div>
               )}
+
+              {/* ✅ View on Google link */}
+              <div className="mt-3">
+                <a
+                  href={googleReviewsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-xs text-blue-400 hover:underline"
+                >
+                  View on Google
+                </a>
+              </div>
             </article>
           ))}
         </div>
       )}
+
+      {/* ✅ Leave a Review button */}
+      <div className="mt-10 text-center">
+        <a
+          href={`${googleReviewsUrl}&review`}
+          target="_blank"
+          rel="noreferrer"
+          className="rounded-2xl bg-white text-black px-6 py-3 font-semibold hover:-translate-y-0.5 transition-transform"
+        >
+          Leave a Google Review
+        </a>
+      </div>
     </section>
   );
 }
