@@ -38,8 +38,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: "g2",
-    quote:
-      "Thank you for the detailed clean!",
+    quote: "Thank you for the detailed clean!",
     author: "Google Reviewer",
     meta: "Melbourne, VIC",
     rating: 5,
@@ -254,7 +253,6 @@ export default function Home() {
 
         {/* TopBanner carousel */}
         <TopBanner />
-        
 
         {/* ========== ABOUT ========== */}
         <section
@@ -277,16 +275,15 @@ export default function Home() {
         {/* Before and After photos */}
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 border-t border-white/10">
           <h2 className="text-2xl sm:text-4xl font-bold mb-8">Before & After</h2>
-        
+
           <div className="grid md:grid-cols-2 gap-8">
-            {/* First panel shows BEFORE */}
+            {/* First panel uses defaults (Before/After) */}
             <BeforeAfterStatic
               src="/ba-placeholder-before.jpg"
               alt="UNLACE cleaning result — pair 1"
-              label="Before"
             />
-        
-            {/* Second panel shows AFTER */}
+
+            {/* Second panel inverted: After (left) / Before (right) */}
             <BeforeAfterStatic
               src="/ba-placeholder-after.jpg"
               alt="UNLACE cleaning result — pair 2"
@@ -335,6 +332,7 @@ export default function Home() {
           <ProcessSteps items={steps} />
         </Reveal>
 
+        {/* Testimonials */}
         <Testimonials items={testimonials} instagramUrl={CONTACT.instagram} />
 
         {/* FAQ */}
