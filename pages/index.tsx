@@ -26,8 +26,25 @@ import FloatingCta from "../components/FloatingCta";
 import BeforeAfterStatic from "../components/BeforeAfterStatic";
 import Testimonials, { Testimonial } from "../components/Testimonials";
 
-// For now we don't have reviews — leave this empty:
-const testimonials: Testimonial[] = [];
+// --- Manual reviews (paste new ones here as you get them) ---
+const testimonials: Testimonial[] = [
+  {
+    id: "g1",
+    quote:
+      "Amazing service. Fast, professional, and my sneakers look brand new again. Definitely my go-to sneaker cleaners here in Melbourne.",
+    author: "Google Reviewer",
+    meta: "Melbourne, VIC",
+    rating: 5,
+  },
+  {
+    id: "g2",
+    quote:
+      "Thank you for the detailed clean!",
+    author: "Google Reviewer",
+    meta: "Melbourne, VIC",
+    rating: 5,
+  },
+];
 
 // Define the benefits (the content list)
 const benefits: Benefit[] = [
