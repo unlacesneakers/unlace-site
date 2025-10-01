@@ -19,23 +19,13 @@ export default function Testimonials({
   instagramUrl?: string;
 }) {
   const hasReviews = items && items.length > 0;
-
-  // ✅ Correct Google Place ID and URLs
-  const GOOGLE_PLACE_ID = "ChIJHekd6ofwaQYR0MujP7jjrEg";
-  const GOOGLE_MAPS_PLACE_URL = `https://www.google.com/maps/search/?api=1&query_place_id=${GOOGLE_PLACE_ID}`;
-  const GOOGLE_WRITE_REVIEW_URL = `https://search.google.com/local/writereview?placeid=${GOOGLE_PLACE_ID}`;
+  const REVIEW_LINK = "https://g.page/r/CdDLoz-4o6xIEAE/review"; // your real review link now
 
   return (
     <section
       id="testimonials"
       className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 border-t border-white/10"
     >
-      {/* ✅ Google Reviews badge */}
-      <div className="mb-6 flex items-center gap-2 text-sm text-zinc-400">
-        <img src="/google-g-icon.png" alt="Google logo" className="h-4 w-4" />
-        <span>Verified Google Reviews</span>
-      </div>
-
       <div className="mb-8 sm:mb-10">
         <h2 className="text-2xl sm:text-4xl font-bold">What people say</h2>
         <p className="text-sm text-zinc-400 mt-2">
@@ -43,7 +33,7 @@ export default function Testimonials({
         </p>
       </div>
 
-      {/* Empty / Coming soon */}
+      {/* If no reviews */}
       {!hasReviews && (
         <div className="rounded-2xl border border-white/10 bg-zinc-950 p-6 sm:p-8">
           <div className="flex items-start gap-4">
@@ -80,7 +70,6 @@ export default function Testimonials({
         </div>
       )}
 
-      {/* Grid of reviews */}
       {hasReviews && (
         <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {items.map((t) => (
@@ -95,9 +84,7 @@ export default function Testimonials({
                   ))}
               </div>
 
-              <p className="mt-3 text-zinc-200 leading-relaxed">
-                “{t.quote}”
-              </p>
+              <p className="mt-3 text-zinc-200 leading-relaxed">“{t.quote}”</p>
 
               {(t.author || t.meta) && (
                 <div className="mt-4 text-sm text-zinc-400">
@@ -106,27 +93,15 @@ export default function Testimonials({
                   {t.meta}
                 </div>
               )}
-
-              {/* ✅ View on Google link */}
-              <div className="mt-3">
-                <a
-                  href={GOOGLE_MAPS_PLACE_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-xs text-blue-400 hover:underline"
-                >
-                  View on Google
-                </a>
-              </div>
             </article>
           ))}
         </div>
       )}
 
-      {/* ✅ Leave a Review button */}
+      {/* Leave a review button */}
       <div className="mt-10 text-center">
         <a
-          href={GOOGLE_WRITE_REVIEW_URL}
+          href={REVIEW_LINK}
           target="_blank"
           rel="noreferrer"
           className="rounded-2xl bg-white text-black px-6 py-3 font-semibold hover:-translate-y-0.5 transition-transform"
