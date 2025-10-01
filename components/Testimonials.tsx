@@ -7,26 +7,35 @@ export type Testimonial = {
   id: string;
   quote: string;
   author?: string;
-  meta?: string;
+  meta?: string;        // e.g., suburb/date/handle
   rating?: 1 | 2 | 3 | 4 | 5;
+};
+
+type RatingSummary = {
+  rating: number;       // e.g., 5.0
+  total: number;        // e.g., 2
+  reviewLink: string;   // your Google review link
 };
 
 export default function Testimonials({
   items,
   instagramUrl,
+  ratingSummary,
 }: {
   items: Testimonial[];
   instagramUrl?: string;
+  ratingSummary?: RatingSummary;
 }) {
   const hasReviews = items && items.length > 0;
-  const REVIEW_LINK = "https://g.page/r/CdDLoz-4o6xIEAE/review";
+  const REVIEW_LINK =
+    ratingSummary?.reviewLink || "https://g.page/r/CdDLoz-4o6xIEAE/review";
 
   return (
     <section
       id="testimonials"
       className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 border-t border-white/10"
     >
-      {/* ✅ Google Review badge */}
+      {/* Badge + summary */}
       <div className="mb-4 flex items-center gap-2 text-sm text-zinc-400">
         <img src="/google-g-icon.png" alt="Google logo" className="h-5 w-5" />
         <span>
@@ -34,12 +43,24 @@ export default function Testimonials({
         </span>
       </div>
 
-      <div className="mb-8 sm:mb-10">
+      <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-2">
         <h2 className="text-2xl sm:text-4xl font-bold">What people say</h2>
-        <p className="text-sm text-zinc-400 mt-2">
-          Trust signals from the community — verified reviews displayed below.
-        </p>
+        {ratingSummary && (
+          <a
+            href={REVIEW_LINK}
+            target="_blank"
+            rel="noreferrer"
+            className="text-sm text-zinc-300 hover:text-white"
+            aria-label="View reviews on Google"
+          >
+            <span className="mr-1">⭐ {ratingSummary.rating.toFixed(1)}</span>
+            <span className="opacity-70">· Based on {ratingSummary.total} Google review{ratingSummary.total === 1 ? "" : "s"}</span>
+          </a>
+        )}
       </div>
+      <p className="text-sm text-zinc-400 mb-8">
+        Trust signals from the community — verified reviews displayed below.
+      </p>
 
       {/* Empty / Coming soon */}
       {!hasReviews && (
@@ -78,6 +99,7 @@ export default function Testimonials({
         </div>
       )}
 
+      {/* Grid of reviews */}
       {hasReviews && (
         <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {items.map((t) => (
@@ -96,8 +118,12 @@ export default function Testimonials({
 
               {(t.author || t.meta) && (
                 <div className="mt-4 text-sm text-zinc-400">
-                  {t.author && <span className="font-medium text-white">{t.author}</span>}
-                  {t.author && t.meta && <span className="opacity-40 mx-2">•</span>}
+                  {t.author && (
+                    <span className="font-medium text-white">{t.author}</span>
+                  )}
+                  {t.author && t.meta && (
+                    <span className="opacity-40 mx-2">•</span>
+                  )}
                   {t.meta}
                 </div>
               )}
@@ -106,7 +132,7 @@ export default function Testimonials({
         </div>
       )}
 
-      {/* ✅ Leave a review button */}
+      {/* Leave a review button */}
       <div className="mt-10 text-center">
         <a
           href={REVIEW_LINK}
