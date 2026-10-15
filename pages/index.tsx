@@ -67,7 +67,7 @@ const steps: Step[] = [
 const faqs: QA[] = [
   {
     q: "How do pick-ups work?",
-    a: <>Book through our online form and select a time window. We’ll confirm via SMS and handle the rest. Standard turnaround is 2–4 days depending on service and condition.</>,
+    a: <>Book through our online form and select a time window. We’ll confirm via SMS and handle the rest. Standard turnaround is 4–5 business days depending on service and condition.</>,
   },
   {
     q: "Do you clean suede and delicate materials?",
@@ -88,7 +88,7 @@ const faqs: QA[] = [
 ];
 
 const faqsForSchema = [
-  { q: "How do pick-ups work?", a: "Book through our online form and select a time window. We’ll confirm via SMS. Standard turnaround is 2–4 days depending on service and condition." },
+  { q: "How do pick-ups work?", a: "Book through our online form and select a time window. We’ll confirm via SMS. Standard turnaround is 4–5 business days depending on service and condition." },
   { q: "Do you clean suede and delicate materials?", a: "Yes — suede, nubuck, mesh, and premium leathers are cleaned with specialist tools and eco-safe solutions. Each material is treated with tailored techniques." },
   { q: "How does pricing and payment work?", a: "Our listed prices cover most pairs. If extras are needed, we confirm them before starting. Payment is made after service via card or transfer." },
   { q: "Where do you operate?", a: "We offer pick-up and delivery across Melbourne. If you’re outside the area, message us on Instagram to arrange options." },
@@ -240,7 +240,7 @@ export default function Home() {
                     <Truck className="h-4 w-4" /> Pick-up & delivery
                   </div>
                   <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4" /> 3 to 4 days*
+                    <Clock className="h-4 w-4" /> 4–5 business days*
                   </div>
                 </div>
               </Reveal>
@@ -305,6 +305,11 @@ export default function Home() {
             </div>
           </Reveal>
 
+          <div className="mb-6 rounded-2xl border border-amber-400/40 bg-amber-400/10 px-5 py-4" role="note">
+            <p className="text-sm font-bold uppercase tracking-wider text-amber-300">Important booking reminder</p>
+            <p className="mt-1 text-white font-semibold">Minimum of 2 pairs per booking.</p>
+          </div>
+
           <div className="grid md:grid-cols-3 gap-6">
             <Card
               icon={<Droplets className="h-6 w-6" />}
@@ -345,6 +350,12 @@ export default function Home() {
         <section id="pickup" className="bg-zinc-950 border-t border-white/10 scroll-mt-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
             <Reveal><h2 className="text-2xl sm:text-4xl font-bold mb-6">Request a Pick-Up</h2></Reveal>
+
+            <div className="mb-6 rounded-2xl border border-amber-400/40 bg-amber-400/10 px-5 py-4" role="note">
+              <p className="text-sm font-bold uppercase tracking-wider text-amber-300">Important booking reminder</p>
+              <p className="mt-1 font-semibold">A minimum of 2 pairs is required per booking.</p>
+              <p className="mt-1 text-sm text-zinc-300">Standard turnaround: 4–5 business days, depending on service and condition.</p>
+            </div>
 
             <form
               action="/api/pickup"
@@ -405,6 +416,12 @@ export default function Home() {
                   </label>
                 </div>
               </fieldset>
+
+              {/* Minimum 2 pairs per booking */}
+              <label className="sm:col-span-2 flex flex-col gap-2 text-sm text-zinc-300">
+                Number of pairs (minimum 2)
+                <input name="pair_count" type="number" min="2" step="1" required defaultValue="2" className="bg-black border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-white/30" />
+              </label>
 
               {/* Sneaker model & notes */}
               <input name="model" placeholder="Sneaker model(s) (e.g., AJ1, Yeezy 350)" className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30 sm:col-span-2" />
