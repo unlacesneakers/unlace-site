@@ -1,7 +1,7 @@
 // pages/index.tsx
 // UNLACE — Melbourne’s Premium Sneaker Atelier
 
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import { motion } from "framer-motion";
 
@@ -137,6 +137,19 @@ function Card({
 }
 
 export default function Home() {
+  const [selectedService, setSelectedService] = useState("");
+  const [pairCount, setPairCount] = useState(2);
+  const [protection, setProtection] = useState(false);
+  const [laceSwap, setLaceSwap] = useState(false);
+  const servicePrices: Record<string, number> = {
+    "Essential Clean": 39,
+    "Premium Detail": 55,
+    "Icy Sole Revival": 85,
+  };
+  const baseCost = (servicePrices[selectedService] || 0) * pairCount;
+  const minimumEstimate = baseCost + (protection ? 20 * pairCount : 0) + (laceSwap ? 10 * pairCount : 0);
+  const maximumEstimate = baseCost + (protection ? 20 * pairCount : 0) + (laceSwap ? 15 * pairCount : 0);
+  const money = (amount: number) => amount.toLocaleString("en-AU", { style: "currency", currency: "AUD", maximumFractionDigits: 0 });
   return (
     <>
       <Head>
@@ -391,6 +404,7 @@ export default function Home() {
                 className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30"
                 onChange={(e) => {
                   const subjectField = document.getElementById("subjectField") as HTMLInputElement | null;
+                  setSelectedService(e.target.value);
                   if (subjectField) {
                     subjectField.value = `New UNLACE Pickup Request — ${e.target.value}`;
                   }
@@ -407,12 +421,12 @@ export default function Home() {
                 <legend className="text-sm text-zinc-400">Extras (optional)</legend>
                 <div className="mt-2 space-y-2">
                   <label className="flex items-center gap-2">
-                    <input type="checkbox" name="extras[]" value="Protection Coating" />
-                    <span>Protection Coating</span>
+                    <input type="checkbox" name="extras[]" value="Protection Coating" checked={protection} onChange={(e) => setProtection(e.target.checked)} />
+                    <span>Protection Coating (+$20 per pair)</span>
                   </label>
                   <label className="flex items-center gap-2">
-                    <input type="checkbox" name="extras[]" value="Lace Swap" />
-                    <span>Lace Swap</span>
+                    <input type="checkbox" name="extras[]" value="Lace Swap" checked={laceSwap} onChange={(e) => setLaceSwap(e.target.checked)} />
+                    <span>Lace Swap (+$10–$15 per pair)</span>
                   </label>
                 </div>
               </fieldset>
@@ -420,8 +434,32 @@ export default function Home() {
               {/* Minimum 2 pairs per booking */}
               <label className="sm:col-span-2 flex flex-col gap-2 text-sm text-zinc-300">
                 Number of pairs (minimum 2)
-                <input name="pair_count" type="number" min="2" step="1" required defaultValue="2" className="bg-black border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-white/30" />
+                <input name="pair_count" type="number" min="2" step="1" required value={pairCount} onChange={(e) => setPairCount(e.target.value === "" ? 0 : Number(e.target.value))} className="bg-black border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-white/30" />
               </label>
+
+              {/* Live estimate: final quote is confirmed after inspection */}
+              <div className="sm:col-span-2 rounded-2xl border border-white/20 bg-black p-5" aria-live="polite">
+                <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Estimated Booking Cost</p>
+                {selectedService && Number.isSafeInteger(pairCount) && pairCount >= 2 ? (
+                  <>
+                    <p className="mt-2 text-3xl font-bold text-white">
+                      {money(minimumEstimate)}{minimumEstimate !== maximumEstimate ? ` – ${money(maximumEstimate)}` : ""}
+                      {selectedService === "Icy Sole Revival" ? <span className="ml-2 text-sm font-normal text-zinc-400">starting from</span> : null}
+                    </p>
+                    <p className="mt-2 text-sm text-zinc-300">
+                      {pairCount} pairs × {selectedService} ({money(servicePrices[selectedService])}/pair)
+                      {protection ? ` + Protection Coating (${money(20 * pairCount)})` : ""}
+                      {laceSwap ? ` + Lace Swap (${money(10 * pairCount)}–${money(15 * pairCount)})` : ""}
+                    </p>
+                  </>
+                ) : (
+                  <p className="mt-2 text-zinc-300">Select a service and at least 2 pairs to see your estimate.</p>
+                )}
+                <p className="mt-3 text-xs text-zinc-400">
+                  Indicative service pricing in AUD. Icy Sole Revival starts at $85 per pair.
+                  Final pricing, any applicable delivery charges, and extra work will be confirmed after inspection.
+                </p>
+              </div>
 
               {/* Sneaker model & notes */}
               <input name="model" placeholder="Sneaker model(s) (e.g., AJ1, Yeezy 350)" className="bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/30 sm:col-span-2" />
