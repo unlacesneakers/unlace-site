@@ -55,6 +55,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const extras: string[] = (Array.isArray(rawExtras) ? rawExtras : rawExtras ? [rawExtras] : [])
     .filter((item): item is string => typeof item === "string");
 
+  // Calculate prices on the server, never trust an amount submitted by a browser.
+  const prices: Record<string, number> = {
+    "Essential Clean": 39,
+    "Premium Detail": 55,
+    "Icy Sole Revival": 85,
+  };
+  if (!Object.prototype.hasOwnProperty.call(prices, service_tier)) {
+    return res.status(400).send("Please select a valid service tier.");
+  }
+  const allowedExtras = ["Protection Coating", "Lace Swap"];
+  if (extras.some((extra) => !allowedExtras.includes(extra))) {
+    return res.status(400).send("Invalid extra selected.");
+  }
+  const selectedExtras = [...new Set(extras)];
+  const baseCost = prices[service_tier] * pairCount;
+  const coatingCost = selectedExtras.includes("Protection Coating") ? 20 * pairCount : 0;
+  const laceMinimum = selectedExtras.includes("Lace Swap") ? 10 * pairCount : 0;
+  const laceMaximum = selectedExtras.includes("Lace Swap") ? 15 * pairCount : 0;
+  const estimateMinimum = baseCost + coatingCost + laceMinimum;
+  const estimateMaximum = baseCost + coatingCost + laceMaximum;
+  const money = (amount: number) => `$${amount.toLocaleString("en-AU")}`;
+  const estimatedCost = `${money(estimateMinimum)}${estimateMaximum !== estimateMinimum ? `–${money(estimateMaximum)}` : ""}${service_tier === "Icy Sole Revival" ? " (starting from)" : ""} AUD`;
+
   const pickupAddress = `${address}, ${suburb} ${postcode}`;
   const turnaround = "4–5 business days (depending on service and condition)";
 
@@ -85,6 +108,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       ["Time Window", time_window],
       ["Service Tier", service_tier],
       ["Pairs", String(pairCount)],
+      ["Estimated Cost", estimatedCost],
       ["Extras", extras.length ? extras.join(", ") : "-"],
       ["Model", model || "-"],
       ["Notes", notes || "-"],
@@ -112,10 +136,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       `Summary:\n` +
       ` - Service Tier: ${service_tier}\n` +
       ` - Number of Pairs: ${pairCount}\n` +
+      ` - Estimated Cost: ${estimatedCost}\n` +
       ` - Pickup Address: ${pickupAddress}\n` +
       ` - Date: ${date}\n` +
       ` - Time Window: ${time_window}\n` +
       ` - Estimated Turnaround: ${turnaround}\n\n` +
+      `Estimate only; final price and any applicable delivery charges will be confirmed after inspection.\n\n` +
       `We’ll confirm your pickup window shortly.\n\n— UNLACE`;
 
     const customerHtml = `
@@ -136,6 +162,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               <table style="width:100%;border-collapse:collapse;font-size:14px;">
                 ${tableRow("Service Tier", service_tier)}
                 ${tableRow("Number of Pairs", String(pairCount))}
+                ${tableRow("Estimated Cost", estimatedCost)}
                 ${tableRow("Pickup Address", pickupAddress)}
                 ${tableRow("Date", date)}
                 ${tableRow("Time Window", time_window)}
@@ -144,6 +171,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 ${model ? tableRow("Model", model) : ""}
               </table>
             </div>
+            <p style="font-size:12px;color:#666;">Estimated service pricing only. Final price and any applicable delivery charges will be confirmed after inspection.</p>
             <div style="text-align:center;margin-top:24px;">
               <a href="mailto:unlacesneakers@gmail.com"
                 style="display:inline-block;padding:12px 20px;background:#d4af37;color:#000;font-weight:bold;text-decoration:none;border-radius:6px;">
