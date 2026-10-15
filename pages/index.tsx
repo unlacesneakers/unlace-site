@@ -70,6 +70,10 @@ const faqs: QA[] = [
     a: <>Book through our online form and select a time window. We’ll confirm via SMS and handle the rest. Standard turnaround is 4–5 business days depending on service and condition.</>,
   },
   {
+    q: "Do you repair or restore damaged sneakers?",
+    a: <>No. UNLACE provides sneaker cleaning and cosmetic de-yellowing only. We do not repair torn materials, detached soles, broken stitching or other physical damage. Cleaning cannot reverse existing wear or damage.</>,
+  },
+  {
     q: "Do you clean suede and delicate materials?",
     a: <>Yes — suede, nubuck, mesh, and premium leathers are all cleaned with specialist tools and eco-safe solutions. Each material is treated with tailored techniques to protect its texture and integrity.</>,
   },
@@ -89,6 +93,7 @@ const faqs: QA[] = [
 
 const faqsForSchema = [
   { q: "How do pick-ups work?", a: "Book through our online form and select a time window. We’ll confirm via SMS. Standard turnaround is 4–5 business days depending on service and condition." },
+  { q: "Do you repair or restore damaged sneakers?", a: "No. UNLACE provides sneaker cleaning and cosmetic de-yellowing only. We do not repair torn materials, detached soles, broken stitching or other physical damage. Cleaning cannot reverse existing wear or damage." },
   { q: "Do you clean suede and delicate materials?", a: "Yes — suede, nubuck, mesh, and premium leathers are cleaned with specialist tools and eco-safe solutions. Each material is treated with tailored techniques." },
   { q: "How does pricing and payment work?", a: "Our listed prices cover most pairs. If extras are needed, we confirm them before starting. Payment is made after service via card or transfer." },
   { q: "Where do you operate?", a: "We offer pick-up and delivery across Melbourne. If you’re outside the area, message us on Instagram to arrange options." },
@@ -156,12 +161,12 @@ export default function Home() {
         <title>UNLACE — Melbourne’s Premium Sneaker Atelier</title>
         <meta
           name="description"
-          content="UNLACE offers premium sneaker cleaning, restoration, and protection with Melbourne-wide pick-up & delivery."
+          content="UNLACE offers premium sneaker cleaning, cosmetic de-yellowing, and protection with Melbourne-wide pick-up & delivery."
         />
         <meta property="og:title" content="UNLACE — Melbourne’s Premium Sneaker Atelier" />
         <meta
           property="og:description"
-          content="Premium sneaker cleaning, restoration, and protection with Melbourne-wide pick-up & delivery."
+          content="Premium sneaker cleaning, cosmetic de-yellowing, and protection with Melbourne-wide pick-up & delivery."
         />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="/og-image.jpg" />
@@ -178,7 +183,7 @@ export default function Home() {
               name: "UNLACE",
               image: "/og-image.jpg",
               description:
-                "Premium sneaker cleaning, restoration, and protection in Melbourne.",
+                "Premium sneaker cleaning, cosmetic de-yellowing, and protection in Melbourne.",
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Melbourne",
@@ -222,7 +227,7 @@ export default function Home() {
 
               <Reveal delay={0.1}>
                 <p className="mt-4 text-zinc-300 max-w-2xl mx-auto text-center">
-                  From daily beaters to grail-level pairs, UNLACE restores sneakers with precision
+                  From daily beaters to grail-level pairs, UNLACE cleans sneakers with precision
                   techniques and eco-safe care. Door-to-door pick-up & return across Melbourne.
                 </p>
               </Reveal>
@@ -323,6 +328,11 @@ export default function Home() {
             <p className="mt-1 text-white font-semibold">Minimum of 2 pairs per booking.</p>
           </div>
 
+          <div className="mb-6 rounded-2xl border border-white/20 bg-zinc-900 px-5 py-4" role="note">
+            <p className="text-sm font-bold uppercase tracking-wider text-white">Important service notice — Cleaning only</p>
+            <p className="mt-2 text-sm text-zinc-300">UNLACE provides sneaker cleaning and cosmetic de-yellowing only. We do not repair or restore physically damaged shoes (including tears, detached soles, broken stitching or structural damage). Cleaning cannot reverse existing wear or damage.</p>
+          </div>
+
           <div className="grid md:grid-cols-3 gap-6">
             <Card
               icon={<Droplets className="h-6 w-6" />}
@@ -368,6 +378,7 @@ export default function Home() {
               <p className="text-sm font-bold uppercase tracking-wider text-amber-300">Important booking reminder</p>
               <p className="mt-1 font-semibold">A minimum of 2 pairs is required per booking.</p>
               <p className="mt-1 text-sm text-zinc-300">Standard turnaround: 4–5 business days, depending on service and condition.</p>
+              <p className="mt-2 text-sm text-zinc-300"><strong className="text-white">Cleaning only:</strong> We do not repair or restore physically damaged shoes. Existing wear and damage may remain after cleaning.</p>
             </div>
 
             <form
@@ -469,7 +480,7 @@ export default function Home() {
               <label className="sm:col-span-2 text-sm text-zinc-300 flex items-start gap-3">
                 <input required type="checkbox" className="mt-1" />
                 <span>
-                  I agree to the <a href="/terms" className="underline">Terms of Service</a> and understand final pricing may change after inspection.
+                  I agree to the <a href="/terms" className="underline">Terms of Service</a>, understand final pricing may change after inspection, and acknowledge that UNLACE provides cleaning only, not repairs or restoration of physical damage.
                 </span>
               </label>
 
