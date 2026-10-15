@@ -229,14 +229,17 @@ export default function Home() {
 
               <Reveal delay={0.05}>
                 <h1 className="text-4xl sm:text-6xl font-extrabold text-center">
-                  UNLACE your sneakers — relace your style.
+                  Premium Sneaker Cleaning in Melbourne
                 </h1>
               </Reveal>
 
               <Reveal delay={0.1}>
-                <p className="mt-4 text-zinc-300 max-w-2xl mx-auto text-center">
-                  From daily beaters to grail-level pairs, UNLACE cleans sneakers with precision
-                  techniques and eco-safe care. Door-to-door pick-up & return across Melbourne.
+                <p className="mt-4 text-zinc-200 font-medium max-w-2xl mx-auto text-center">
+                  UNLACE your sneakers — relace your style.
+                </p>
+                <p className="mt-3 text-zinc-300 max-w-2xl mx-auto text-center">
+                  Professional sneaker cleaning, deep detailing and cosmetic sole whitening,
+                  with convenient pick-up and delivery across Melbourne. Minimum 2 pairs per booking.
                 </p>
               </Reveal>
 
@@ -285,11 +288,11 @@ export default function Home() {
           id="about"
           className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 border-b border-white/10"
         >
-          <Reveal><h2 className="text-2xl sm:text-4xl font-bold mb-4">About Us</h2></Reveal>
+          <Reveal><h2 className="text-2xl sm:text-4xl font-bold mb-4">About UNLACE — Melbourne Sneaker Cleaning</h2></Reveal>
           <div className="space-y-4">
-            <Reveal><p className="text-zinc-300">At UNLACE, we believe sneakers are more than just footwear — they’re culture, memory, and investment. Founded in Melbourne, our mission is simple: to give every pair the same meticulous care we give our own.</p></Reveal>
-            <Reveal delay={0.05}><p className="text-zinc-300">Our team is made up of sneakerheads who understand the nuances of premium materials. From delicate suede to aged rubber, every clean is tailored with eco-safe solutions and specialist techniques.</p></Reveal>
-            <Reveal delay={0.1}><p className="text-zinc-300">Whether it’s reviving beaters, preserving grails, or refreshing your daily rotation, UNLACE offers convenient Melbourne-wide pick-up and return. Every sneaker is treated with precision, passion, and respect — so they look and feel as good as the day you copped them.</p></Reveal>
+            <Reveal><p className="text-zinc-300">UNLACE is a Melbourne sneaker cleaning service for people who want their favourite pairs cared for properly. From everyday trainers to collectable sneakers, we focus on careful cleaning, deep detailing and cosmetic sole de-yellowing.</p></Reveal>
+            <Reveal delay={0.05}><p className="text-zinc-300">Our cleaning options include Essential Clean for exterior care, Premium Detail for a more thorough clean, and Icy Sole Revival for eligible yellowed soles. We tailor cleaning methods to the sneaker material and assess each pair before confirming the final quote.</p></Reveal>
+            <Reveal delay={0.1}><p className="text-zinc-300">With sneaker pick-up and delivery available across Melbourne, booking a shoe clean is straightforward. Standard turnaround is estimated at 4–5 business days, depending on condition and service. UNLACE provides cleaning and cosmetic treatments only — not repairs to torn materials, detached soles or other physical damage.</p></Reveal>
           </div>
         </section>
 
@@ -326,7 +329,7 @@ export default function Home() {
         >
           <Reveal>
             <div className="mb-8 sm:mb-10 flex items-end justify-between">
-              <h2 className="text-2xl sm:text-4xl font-bold">Services</h2>
+              <h2 className="text-2xl sm:text-4xl font-bold">Sneaker Cleaning Services in Melbourne</h2>
               <p className="text-sm text-zinc-400">Meticulous care, premium results.</p>
             </div>
           </Reveal>
@@ -345,19 +348,19 @@ export default function Home() {
             <Card
               icon={<Droplets className="h-6 w-6" />}
               title="Essential Clean"
-              desc="A quick reset for your daily rotation. Exterior clean of uppers & midsoles — restores freshness without the wait."
+              desc="Exterior sneaker cleaning for uppers and midsoles — a practical refresh for everyday shoes."
               price="$39"
             />
             <Card
               icon={<Droplets className="h-6 w-6" />}
               title="Premium Detail"
-              desc="Full inside-out deep clean: uppers, midsoles, insoles & laces. Material-safe for leather, mesh, suede & nubuck — finished with deodorising."
+              desc="Detailed sneaker cleaning for uppers, midsoles, insoles and laces, with deodorising and material-appropriate care."
               price="$55"
             />
             <Card
               icon={<Stars className="h-6 w-6" />}
               title="Icy Sole Revival"
-              desc="Reverse yellowing and oxidation with targeted whitening & stain treatment. Bring back that fresh-out-the-box glow."
+              desc="Cosmetic sole whitening to help reduce the appearance of yellowing on eligible sneakers. Results vary by condition and material."
               price="From $85"
             />
           </div>
