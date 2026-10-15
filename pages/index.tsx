@@ -10,7 +10,7 @@ const CONTACT = {
   email: "unlacesneakers@gmail.com",
   phone: "+61452507067",
   instagram: "https://www.instagram.com/unlacesneakers/#",
-  siteUrl: "https://unlace.com.au",
+  siteUrl: "https://www.unlace.com.au",
 };
 
 // Components
@@ -158,18 +158,22 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>UNLACE — Melbourne’s Premium Sneaker Atelier</title>
+        <title>Sneaker Cleaning Melbourne | Pick-Up & Delivery | UNLACE</title>
         <meta
           name="description"
-          content="UNLACE offers premium sneaker cleaning, cosmetic de-yellowing, and protection with Melbourne-wide pick-up & delivery."
+          content="Premium sneaker cleaning in Melbourne. Essential Clean, deep cleaning, sole whitening and convenient pick-up and delivery. Minimum 2 pairs per booking."
         />
-        <meta property="og:title" content="UNLACE — Melbourne’s Premium Sneaker Atelier" />
+        <link rel="canonical" href="https://www.unlace.com.au/" />
+        <meta name="robots" content="index,follow" />
+        <meta property="og:title" content="Sneaker Cleaning Melbourne | UNLACE" />
         <meta
           property="og:description"
-          content="Premium sneaker cleaning, cosmetic de-yellowing, and protection with Melbourne-wide pick-up & delivery."
+          content="Premium sneaker cleaning, cosmetic sole whitening and protection with convenient Melbourne pick-up and delivery."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="/og-image.jpg" />
+        <meta property="og:url" content="https://www.unlace.com.au/" />
+        <meta property="og:image" content="https://www.unlace.com.au/og-image.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
         <link rel="icon" href="/favicon.ico" />
         <style>{`html{scroll-behavior:smooth}`}</style>
 
@@ -180,15 +184,19 @@ export default function Home() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
+              "@id": "https://www.unlace.com.au/#business",
               name: "UNLACE",
-              image: "/og-image.jpg",
+              image: "https://www.unlace.com.au/og-image.jpg",
               description:
-                "Premium sneaker cleaning, cosmetic de-yellowing, and protection in Melbourne.",
+                "Premium sneaker cleaning, cosmetic de-yellowing and protection with pick-up and delivery in Melbourne, Victoria.",
+              areaServed: {
+                "@type": "City",
+                name: "Melbourne",
+              },
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Melbourne",
                 addressRegion: "VIC",
-                postalCode: "3000",
                 addressCountry: "AU",
               },
               telephone: CONTACT.phone,
