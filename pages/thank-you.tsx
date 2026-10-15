@@ -3,7 +3,7 @@ import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Header from "../components/Header";
-import { CheckCircle2, Mail, Phone, Instagram } from "lucide-react";
+import { CheckCircle2, Mail, MessageCircle, Instagram } from "lucide-react";
 
 export default function ThankYou() {
   return (
@@ -58,13 +58,16 @@ export default function ThankYou() {
                 <Mail className="h-4 w-4" />
                 Email us
               </a>
-              <a
-                href="tel:+61452507067"
-                className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-black px-4 py-3 hover:border-white/30"
-              >
-                <Phone className="h-4 w-4" />
-                +61 452 507 067
-              </a>
+            <a
+  href="https://wa.me/61452507067?text=Hi%20UNLACE%21%20I%27ve%20just%20submitted%20a%20booking%20and%20would%20like%20to%20send%20photos%20of%20my%20sneakers%20for%20assessment."
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-black px-4 py-3 hover:border-green-500 transition-colors"
+>
+  <MessageCircle className="h-4 w-4 text-green-500" />
+  WhatsApp
+</a>
+              
               <a
                 href="https://www.instagram.com/unlacesneakers/#"
                 target="_blank"
