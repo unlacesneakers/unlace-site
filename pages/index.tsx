@@ -366,6 +366,57 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ========== UNLACE IN ACTION — INSTAGRAM REELS ========== */}
+        <section
+          id="videos"
+          aria-labelledby="videos-heading"
+          className="border-t border-white/10 bg-zinc-950 scroll-mt-24"
+        >
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+            <Reveal>
+              <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 mb-3">
+                Behind the clean
+              </p>
+              <h2 id="videos-heading" className="text-2xl sm:text-4xl font-bold">
+                UNLACE IN ACTION
+              </h2>
+              <p className="mt-3 mb-10 max-w-2xl text-zinc-300">
+                See our sneaker cleaning process up close. Watch the detail and care
+                that goes into every pair.
+              </p>
+            </Reveal>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { id: "DPSjoPFj1ij", label: "UNLACE cleaning reel 1" },
+                { id: "DOChA27k3Tg", label: "UNLACE cleaning reel 2" },
+                { id: "DOnWtGrj5rB", label: "UNLACE cleaning reel 3" },
+              ].map((reel) => (
+                <div key={reel.id} className="min-w-0 rounded-2xl border border-white/10 bg-black p-3 sm:p-4">
+                  <iframe
+                    title={reel.label}
+                    src={`https://www.instagram.com/reel/${reel.id}/embed/`}
+                    loading="lazy"
+                    allow="encrypted-media; picture-in-picture"
+                    className="w-full rounded-xl bg-white"
+                    style={{ height: 520, border: 0 }}
+                  />
+                  <a
+                    href={`https://www.instagram.com/reel/${reel.id}/`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-block text-sm text-zinc-300 underline underline-offset-4 hover:text-white"
+                  >
+                    View on Instagram ↗
+                  </a>
+                </div>
+              ))}
+            </div>
+            <p className="mt-5 text-xs text-zinc-500">
+              Videos are hosted by Instagram and may require Instagram cookies or access to load.
+            </p>
+          </div>
+        </section>
+
         {/* Process Steps */}
         <Reveal>
           <ProcessSteps items={steps} />
