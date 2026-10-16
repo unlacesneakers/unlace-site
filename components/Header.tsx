@@ -2,6 +2,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 
 export default function Header() {
@@ -64,13 +65,20 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur supports-[backdrop-filter]:bg-black/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Brand text */}
+        {/* Brand logo — image file must be in public/unlace-header-logo.png */}
         <Link
           href="/"
-          className="text-xl font-extrabold tracking-wide hover:text-zinc-300"
+          className="flex shrink-0 items-center hover:opacity-80 transition-opacity"
           aria-label="UNLACE home"
         >
-          UNLACE
+          <Image
+            src="/unlace-header-logo.png"
+            alt="UNLACE — Premium Sneaker Atelier"
+            width={1898}
+            height={384}
+            priority
+            className="h-auto w-[142px] sm:w-[174px]"
+          />
         </Link>
 
         {/* Desktop nav */}
@@ -89,7 +97,6 @@ export default function Header() {
           onClick={() => setOpen((v) => !v)}
           className="md:hidden inline-flex items-center justify-center rounded-md border border-white/10 px-2.5 py-2 text-white/90 hover:bg-white/10"
         >
-          {/* icon */}
           <span className="sr-only">Menu</span>
           {!open ? (
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
