@@ -65,19 +65,19 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur supports-[backdrop-filter]:bg-black/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Brand logo — image file must be in public/unlace-header-logo.png */}
+        {/* Brand logo — image file must be in public/unlace-logo-transparent.png */}
         <Link
           href="/"
           className="flex shrink-0 items-center hover:opacity-80 transition-opacity"
           aria-label="UNLACE home"
         >
           <Image
-            src="/unlace-header-logo.png"
+            src="/unlace-logo-transparent.png"
             alt="UNLACE — Premium Sneaker Atelier"
-            width={1898}
-            height={384}
+            width={1881}
+            height={361}
             priority
-            className="h-auto w-[142px] sm:w-[174px] mix-blend-screen"
+            className="h-auto w-[142px] sm:w-[174px]"
           />
         </Link>
 
