@@ -77,7 +77,7 @@ export default function Header() {
             width={1898}
             height={384}
             priority
-            className="h-auto w-[142px] sm:w-[174px]"
+            className="h-auto w-[142px] sm:w-[174px] mix-blend-screen"
           />
         </Link>
 
